@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS chain(
     fallmkup float,
     wintermkup float);
 
+
 create table if not exists client(
     clid serial primary key,
     fname varchar,
@@ -21,7 +22,15 @@ create table if not exists hotel(
     hname varchar,
     hcity varchar);
 
---employee
+create table if not exists employee(
+    eid serial primary key,
+    hid integer references hotel(hid),
+    fname varchar,
+    lname varchar,
+    age integer,
+    position varchar,
+    salary float
+)
 
 --login
 
