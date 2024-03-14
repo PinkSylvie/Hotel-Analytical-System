@@ -2,7 +2,7 @@
 
 ## Members:
 - Marianyelis Jimenez Mercedes
-- 2
+- Leonardo Delgado Bermúdez
 - 3
 - 4
 - 5
