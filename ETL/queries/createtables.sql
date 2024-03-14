@@ -42,13 +42,17 @@ create table if not exists login(
     username varchar,
     password varchar);
 
---room
+create table if not exists room(
+        rid serial primary key,
+        hid integer references hotel(hid),
+        rdid integer references roomdescription(rdid),
+        rprice float);
 
     
-create table if not exists room_unavailable(
+create table if not exists roomunavailable(
     ruid serial primary key,
     rid integer references room(rid),
-    start_date varchar,
-    end_date varchar);
+    startdate date,
+    enddate date);
 
 --reserve
