@@ -3,7 +3,7 @@
 ## Members:
 - Marianyelis Jimenez Mercedes
 - Leonardo Delgado Bermúdez
-- 3
+- Perla N. Colón Marrero
 - 4
 - 5
 
