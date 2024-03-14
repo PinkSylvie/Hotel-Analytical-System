@@ -14,7 +14,12 @@ create table if not exists client(
     age integer,
     memberyear integer);
 
---room decription
+create table if not exists roomdescription(
+    rdid serial primary key,
+    rname varchar,
+    rtype varchar,
+    capacity integer,
+    ishandicap boolean);
 
 create table if not exists hotel(
     hid serial primary key,
@@ -29,20 +34,21 @@ create table if not exists employee(
     lname varchar,
     age integer,
     position varchar,
-    salary float
-)
+    salary float);
 
---login
+create table if not exists login(
+    lid serial primary key,
+    eid integer references employee(eid),
+    username varchar,
+    password varchar);
 
 --room
 
---room unavailable
     
 create table if not exists room_unavailable(
     ruid serial primary key,
     rid integer references room(rid),
     start_date varchar,
-    end_date varchar,
-)
+    end_date varchar);
 
 --reserve
