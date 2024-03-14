@@ -4,7 +4,7 @@
 - Marianyelis Jimenez Mercedes
 - Leonardo Delgado Bermúdez
 - Perla N. Colón Marrero
-- 4
+- Christopher M. Lagos Rosa
 - 5
 
 ## The team's Heroku database credentials are:
