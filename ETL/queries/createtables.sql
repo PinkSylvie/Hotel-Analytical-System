@@ -37,5 +37,12 @@ create table if not exists employee(
 --room
 
 --room unavailable
+    
+create table if not exists room_unavailable(
+    ruid serial primary key,
+    rid integer references room(rid),
+    start_date varchar,
+    end_date varchar,
+)
 
 --reserve
