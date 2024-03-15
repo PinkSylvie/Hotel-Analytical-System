@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS chain(
+CREATE TABLE IF NOT EXISTS chains(
     chid serial primary key,
     cname varchar,
     springmkup float,
@@ -23,7 +23,7 @@ create table if not exists roomdescription(
 
 create table if not exists hotel(
     hid serial primary key,
-    chid integer references chain(chid),
+    chid integer references chains(chid),
     hname varchar,
     hcity varchar);
 
@@ -55,4 +55,10 @@ create table if not exists roomunavailable(
     startdate date,
     enddate date);
 
---reserve
+create table if not exists reserve(
+        reid serial primary key,
+        rid integer references roomunavailable(rid),
+        clid integer references client(clid),
+        total_cost float,
+        payment varchar,
+        guests integer);
