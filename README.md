@@ -19,6 +19,9 @@
 ### Password:
 - pb325f14052d7ee01401a13ccdbc85f96faadd4f17132852aafe33d01ae940f27
 
+## Heroku Hostname:
+- https://climp-a4394f63aad7.herokuapp.com/
+
 ## To connect DataGrip to Heroku:
 
 - Create a new PostgreSQL Data Source
