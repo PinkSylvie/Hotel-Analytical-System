@@ -5,7 +5,7 @@
 - Leonardo Delgado Bermúdez
 - Perla N. Colón Marrero
 - Christopher M. Lagos Rosa
-- 5
+- Ian G. Colon Rosado
 
 ## The team's Heroku database credentials are:
 ### Host:
