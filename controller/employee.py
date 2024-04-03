@@ -28,11 +28,24 @@ class Employee:
         result['salary'] = employee[6]
 
         return result
+
     def getAllEmployees(self):
         model = EmployeeDAO()
         result = model.getAllEmployees()
         answer = self.make_json(result)
         return answer
+
+    def addNewEmployee(self, data):
+        hid = data['hid']
+        fname = data['fname']
+        lname = data['lname']
+        age = data['age']
+        position = data['position']
+        salary = data['salary']
+        dao = EmployeeDAO()
+        chain = dao.addNewEmployee(hid,fname,lname,age,position,salary)
+        result = self.make_json(chain)
+        return result
 
     def getEmployeeById(self,eid):
         dao = EmployeeDAO()
@@ -41,4 +54,31 @@ class Employee:
             return jsonify("Not Found"), 404
         else:
             result = self.make_json_one(employee)
+            return result
+
+    def updateEmployeeById(self, eid, data):
+        dao = EmployeeDAO()
+        employee = dao.updateEmployeeById(eid, data)
+        if not employee:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_json_one(employee)
+            return result
+
+    def deleteEmployeeById(self,eid):
+        dao = EmployeeDAO()
+        employee = dao.deleteEmployeeById(eid)
+        if not employee:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_json(employee)
+            return result
+
+    def getHighestPaid(self, hid):
+        dao = EmployeeDAO()
+        employee = dao.getHighestPaid(hid)
+        if not employee:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_json(employee)
             return result
