@@ -1,6 +1,8 @@
 from flask import jsonify
 
 from model.stats import StatsDAO
+
+
 class Stats:
 
     def make_revenue_json(self, tuples):
@@ -38,6 +40,51 @@ class Stats:
 
         return result
 
+    def make_cap_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['hid'] = t[0]
+            D['chain'] = t[1]
+            D['name'] = t[2]
+            D['city'] = t[3]
+            D['total_cap'] = t[4]
+            result.append(D)
+        return result
+
+    def make_res_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['hid'] = t[0]
+            D['name'] = t[1]
+            D['city'] = t[2]
+            D['reservation_count'] = t[4]
+            result.append(D)
+        return result
+
+    def make_discount_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['clid'] = t[0]
+            D['fname'] = t[1]
+            D['lastname'] = t[2]
+            D['age'] = t[3]
+            D['memberyear'] = t[4]
+            result.append(D)
+        return result
+
+    def make_credit_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['clid'] = t[0]
+            D['fname'] = t[1]
+            D['lastname'] = t[2]
+            D['reservations'] = t[3]
+            result.append(D)
+        return result
 
     def getTopRevenue(self):
         dao = StatsDAO()
@@ -56,7 +103,6 @@ class Stats:
         access = dao.CheckAccess(hid, eid)
         return access
 
-
     def getHighestPaid(self, hid):
         dao = StatsDAO()
         employee = dao.getHighestPaid(hid)
@@ -65,3 +111,27 @@ class Stats:
         else:
             result = self.make_highest_paid_json(employee)
             return result
+
+    def getTopHotelCap(self):
+        dao = StatsDAO()
+        hotel = dao.getTopHotelCap()
+        result = self.make_cap_json(hotel)
+        return result
+
+    def getTopHotelRes(self):
+        dao = StatsDAO()
+        hotel = dao.getTopHotelRes()
+        result = self.make_res_json(hotel)
+        return result
+
+    def getTopCreditClient(self):
+        dao = StatsDAO()
+        client = dao.getTopCreditClient()
+        result = self.make_credit_json(client)
+        return result
+
+    def getTopClientDiscount(self):
+        dao = StatsDAO()
+        client = dao.getTopClientDiscount()
+        result = self.make_discount_json(client)
+        return result
