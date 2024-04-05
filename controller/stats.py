@@ -38,6 +38,15 @@ class Stats:
 
         return result
 
+    def CheckGlobalAccess(self, eid):
+        dao = StatsDAO()
+        access = dao.CheckGlobalAccess(eid)
+        return access
+
+    def CheckLocalAccess(self, hid, eid):
+        dao = StatsDAO()
+        access = dao.CheckLocalAccess(hid, eid)
+        return access
 
     def getTopRevenue(self):
         dao = StatsDAO()
@@ -50,12 +59,6 @@ class Stats:
         chain = dao.getLeastRooms()
         result = self.make_least_room_json(chain)
         return result
-
-    def CheckAccess(self, hid, eid):
-        dao = StatsDAO()
-        access = dao.CheckAccess(hid, eid)
-        return access
-
 
     def getHighestPaid(self, hid):
         dao = StatsDAO()

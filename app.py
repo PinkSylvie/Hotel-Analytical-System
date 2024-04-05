@@ -14,7 +14,7 @@ def hello_world():
     return "Hello World my friends"
 
 
-@app.route("/chains", methods=['GET', 'POST'])
+@app.route("/climp/chains", methods=['GET', 'POST'])
 def handleChains():
     if request.method == 'GET':
         handler = Chains()
@@ -36,7 +36,7 @@ def handleChains():
             return jsonify("Invalid JSON data provided"),404
 
 
-@app.route("/chains/<int:chid>",methods=['GET', 'PUT', 'DELETE'])
+@app.route("/climp/chains/<int:chid>",methods=['GET', 'PUT', 'DELETE'])
 def handleChainById(chid):
     if request.method == 'GET':
         handler = Chains()
@@ -62,10 +62,10 @@ def handleChainById(chid):
             return handler.deleteChainById(chid)
         except Exception as e:
             print("Error processing request:", e)
-            return jsonify("Can not delete record because it is referenced by other records"),404
+            return jsonify("Can not delete record because it is referenced by other records"),200
 
 
-@app.route("/employee",methods=['GET', 'POST'])
+@app.route("/climp/employee",methods=['GET', 'POST'])
 def handleEmployee():
     if request.method == 'GET':
         handler = Employee()
@@ -87,7 +87,7 @@ def handleEmployee():
             return jsonify("Invalid JSON data provided"), 404
 
 
-@app.route("/employee/<int:eid>",methods=['GET', 'PUT', 'DELETE'])
+@app.route("/climp/employee/<int:eid>",methods=['GET', 'PUT', 'DELETE'])
 def handleEmployeeById(eid):
     if request.method == 'GET':
         handler = Employee()
@@ -117,7 +117,7 @@ def handleEmployeeById(eid):
             return jsonify("Can not delete record because it is referenced by other records"),404
 
 # Local Stats
-@app.route("/hotel/<int:hid>/highestpaid", methods=['GET'])
+@app.route("/climp/hotel/<int:hid>/highestpaid", methods=['GET'])
 def handleHighestPaid(hid):
     try:
         data = request.json
@@ -129,27 +129,59 @@ def handleHighestPaid(hid):
             return jsonify("Missing a key"), 404
         eid = data['eid']
         handler = Stats()
-        access = handler.CheckAccess(hid, eid)
+        access = handler.CheckLocalAccess(hid, eid)
         if access:
             return handler.getHighestPaid(hid)
         else:
-            return jsonify("This employee has no access to these stats"), 404
+            return jsonify("This employee has no access to these stats"), 200
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
 
 
 # Global Stats
-@app.route("/most/revenue", methods=['GET'])
+@app.route("/climp/most/revenue", methods=['GET'])
 def handleTopRevenue():
-    handler = Stats()
-    return handler.getTopRevenue()
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
 
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getTopRevenue()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
 
-@app.route("/least/rooms", methods=['GET'])
+@app.route("/climp/least/rooms", methods=['GET'])
 def handleLeastRooms():
-    handler = Stats()
-    return handler.getLeastRooms()
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getLeastRooms()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
 
 
 if __name__ == "__main__":
