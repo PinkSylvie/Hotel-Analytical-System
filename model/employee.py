@@ -86,12 +86,3 @@ class EmployeeDAO:
             cursor.close()
             return result
 
-    def getHighestPaid(self, hid):
-        cursor = self.conn.cursor()
-        query = "select * from employee where hid = %s and position = 'Regular' order by salary desc limit 3;"
-        cursor.execute(query, (hid,))
-        result = []
-        for row in cursor:
-            result.append(row)
-        cursor.close()
-        return result

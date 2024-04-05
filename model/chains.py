@@ -11,7 +11,7 @@ class ChainsDAO:
 
     def getAllChains(self):
         cursor = self.conn.cursor()
-        query = "select chid, cname, springmkup, summermkup, fallmkup, wintermkup from chain;"
+        query = "select * from chains;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -21,8 +21,8 @@ class ChainsDAO:
 
     def getChainById(self, chid):
         cursor = self.conn.cursor()
-        #Remember to update chain to chains (testing deletes with extra table)
-        query = "select chid, cname, springmkup, summermkup, fallmkup, wintermkup from chains where chid = %s;"
+
+        query = "select * from chains where chid = %s;"
         cursor.execute(query, (chid,))
         result = cursor.fetchone()
         cursor.close()
@@ -31,10 +31,10 @@ class ChainsDAO:
     def addNewChain(self, cname, springmkup,summermkup,fallmkup,wintermkup):
 
         cursor = self.conn.cursor()
-        query = "insert into chain (cname, springmkup, summermkup, fallmkup, wintermkup) values (%s, %s, %s, %s, %s);"
+        query = "insert into chains (cname, springmkup, summermkup, fallmkup, wintermkup) values (%s, %s, %s, %s, %s);"
         cursor.execute(query, (cname, springmkup, summermkup, fallmkup, wintermkup))
         self.conn.commit()
-        cursor.execute("SELECT * FROM chain")
+        cursor.execute("SELECT * FROM chains")
         result = cursor.fetchall()
         cursor.close()
         return result
@@ -43,7 +43,7 @@ class ChainsDAO:
         cursor = self.conn.cursor()
 
         for key, value in data.items():
-            query = "update chain set"
+            query = "update chains set"
 
             if key == "cname":
                 query += " cname = %s where chid = %s;"
@@ -57,8 +57,7 @@ class ChainsDAO:
                 query += " wintermkup = %s where chid = %s;"
             cursor.execute(query, (value,chid,))
             self.conn.commit()
-        #Remember to update chain to chains (testing deletes with extra table)
-        query = "select chid, cname, springmkup, summermkup, fallmkup, wintermkup from chain where chid = %s;"
+        query = "select * from chains where chid = %s;"
         cursor.execute(query, (chid,))
         result = cursor.fetchone()
         cursor.close()
@@ -66,9 +65,7 @@ class ChainsDAO:
 
     def deleteChainById(self, chid):
         cursor = self.conn.cursor()
-        #Remember to update chain to chains (testing deletes with extra table)
-        #DONT TOUCH
-        select_query = "SELECT * FROM chain WHERE chid = %s"
+        select_query = "SELECT * FROM chains WHERE chid = %s"
         cursor.execute(select_query, (chid,))
         chain = cursor.fetchone()
 
@@ -76,32 +73,12 @@ class ChainsDAO:
             cursor.close()
             return None
         else:
-            query = "delete from chain where chid = %s;"
+            query = "delete from chains where chid = %s;"
             cursor.execute(query, (chid,))
             self.conn.commit()
-            cursor.close()
-
-            cursor.execute("SELECT * FROM chain")
+            cursor.execute("SELECT * FROM chains")
             result = cursor.fetchall()
             cursor.close()
             return result
 
-    def getTopRevenue(self):
-        cursor = self.conn.cursor()
-        query = "select chid, cname, sum(total_cost) as revenue from (((chain natural inner join hotel) natural inner join room) natural inner join roomunavailable) natural inner join reserve group by chid, cname order by sum(total_cost) desc limit 3;"
-        cursor.execute(query)
-        result = []
-        for row in cursor:
-            result.append(row)
-        cursor.close()
-        return result
 
-    def getLeastRooms(self):
-        cursor = self.conn.cursor()
-        query = "select chid, cname, count(rid) as room_amount from (chain natural inner join hotel) natural inner join room group by chid, cname order by count(rid) limit 3;"
-        cursor.execute(query)
-        result = []
-        for row in cursor:
-            result.append(row)
-        cursor.close()
-        return result
