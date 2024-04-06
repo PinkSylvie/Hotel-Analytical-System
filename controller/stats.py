@@ -1,8 +1,6 @@
 from flask import jsonify
 
 from model.stats import StatsDAO
-
-
 class Stats:
 
     def make_revenue_json(self, tuples):
@@ -40,51 +38,15 @@ class Stats:
 
         return result
 
-    def make_cap_json(self, tuples):
-        result = []
-        for t in tuples:
-            D = {}
-            D['hid'] = t[0]
-            D['name'] = t[1]
-            D['city'] = t[2]
-            D['total_cap'] = t[3]
-            result.append(D)
-        return result
+    def CheckGlobalAccess(self, eid):
+        dao = StatsDAO()
+        access = dao.CheckGlobalAccess(eid)
+        return access
 
-    def make_res_json(self, tuples):
-        result = []
-        for t in tuples:
-            D = {}
-            D['hid'] = t[0]
-            D['name'] = t[1]
-            D['city'] = t[2]
-            D['reservation_count'] = t[3]
-            D['percentile_rank'] = t[4]
-            result.append(D)
-        return result
-
-    def make_discount_json(self, tuples):
-        result = []
-        for t in tuples:
-            D = {}
-            D['clid'] = t[0]
-            D['fname'] = t[1]
-            D['lastname'] = t[2]
-            D['age'] = t[3]
-            D['memberyear'] = t[4]
-            result.append(D)
-        return result
-
-    def make_credit_json(self, tuples):
-        result = []
-        for t in tuples:
-            D = {}
-            D['clid'] = t[0]
-            D['fname'] = t[1]
-            D['lastname'] = t[2]
-            D['reservation_count'] = t[3]
-            result.append(D)
-        return result
+    def CheckLocalAccess(self, hid, eid):
+        dao = StatsDAO()
+        access = dao.CheckLocalAccess(hid, eid)
+        return access
 
     def getTopRevenue(self):
         dao = StatsDAO()
@@ -98,12 +60,6 @@ class Stats:
         result = self.make_least_room_json(chain)
         return result
 
-    def CheckAccess(self, hid, eid):
-        dao = StatsDAO()
-        access = dao.CheckAccess(hid, eid)
-        return access
-
-    # Hotel ------------------------------------------------------------------------------------------------
     def getHighestPaid(self, hid):
         dao = StatsDAO()
         employee = dao.getHighestPaid(hid)
@@ -112,28 +68,3 @@ class Stats:
         else:
             result = self.make_highest_paid_json(employee)
             return result
-
-    def getTopHotelCap(self):
-        dao = StatsDAO()
-        hotel = dao.getTopHotelCap()
-        result = self.make_cap_json(hotel)
-        return result
-
-    def getTopHotelRes(self):
-        dao = StatsDAO()
-        hotel = dao.getTopHotelRes()
-        result = self.make_res_json(hotel)
-        return result
-
-    # Client ------------------------------------------------------------------------------------------------
-    def getTopCreditClient(self, hid):
-        dao = StatsDAO()
-        client = dao.getTopCreditClient(hid)
-        result = self.make_credit_json(client)
-        return result
-
-    def getTopClientDiscount(self, hid):
-        dao = StatsDAO()
-        client = dao.getTopClientDiscount(hid)
-        result = self.make_discount_json(client)
-        return result

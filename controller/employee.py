@@ -73,12 +73,3 @@ class Employee:
         else:
             result = self.make_json(employee)
             return result
-
-    def getHighestPaid(self, hid):
-        dao = EmployeeDAO()
-        employee = dao.getHighestPaid(hid)
-        if not employee:
-            return jsonify("Not Found"), 404
-        else:
-            result = self.make_json(employee)
-            return result

@@ -18,26 +18,6 @@ class Chains:
 
         return result
 
-    def make_revenue_json(self, tuples):
-        result = []
-        for t in tuples:
-            D = {}
-            D['chid'] = t[0]
-            D['cname'] = t[1]
-            D['revenue'] = t[2]
-            result.append(D)
-        return result
-
-    def make_least_room_json(self, tuples):
-        result = []
-        for t in tuples:
-            D = {}
-            D['chid'] = t[0]
-            D['cname'] = t[1]
-            D['room_amount'] = t[2]
-            result.append(D)
-        return result
-
     def make_json_one(self,chain):
         result = {}
         result['chid'] = chain[0]
@@ -92,15 +72,3 @@ class Chains:
         else:
             result = self.make_json(chain)
             return result
-
-    def getTopRevenue(self):
-        dao = ChainsDAO()
-        chain = dao.getTopRevenue()
-        result = self.make_revenue_json(chain)
-        return result
-
-    def getLeastRooms(self):
-        dao = ChainsDAO()
-        chain = dao.getLeastRooms()
-        result = self.make_least_room_json(chain)
-        return result
