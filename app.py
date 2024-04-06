@@ -130,7 +130,7 @@ def handleHotels():
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'chain', 'name', 'city'}
+            valid_keys = {'chid', 'hname', 'hcity'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
@@ -152,7 +152,7 @@ def handleHotelById(hid):
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'chain', 'name', 'city'}
+            valid_keys = {'chid', 'hname', 'hcity'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
@@ -183,7 +183,7 @@ def handleClients():
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'fname', 'lastname', 'age', 'memberyear'}
+            valid_keys = {'fname', 'lname', 'age', 'memberyear'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
@@ -205,7 +205,7 @@ def handleClientById(clid):
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'fname', 'lastname', 'age', 'memberyear'}
+            valid_keys = {'fname', 'lname', 'age', 'memberyear'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
