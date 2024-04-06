@@ -13,11 +13,11 @@
 
 # Ián DB
 
-# pg_config = {
-#     'user': 'climp',
-#     'password': 'dummypass',
-#     'dbname': 'db_proj',
-#     'dbport': 5432,
-#     'host': '127.0.0.1'
-# }
+pg_config = {
+    'user': 'climp',
+    'password': 'dummypass',
+    'dbname': 'db_proj',
+    'dbport': 5432,
+    'host': '127.0.0.1'
+}
 

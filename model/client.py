@@ -75,9 +75,8 @@ class ClientDAO:
         else:
             query = "delete from client where clid = %s;"
             cursor.execute(query, (clid,))
+            affected_rows = cursor.rowcount
             self.conn.commit()
-            cursor.close()
-
             cursor.execute("SELECT * FROM client")
             result = cursor.fetchall()
             cursor.close()

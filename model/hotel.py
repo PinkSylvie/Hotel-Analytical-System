@@ -73,9 +73,8 @@ class HotelDAO:
         else:
             query = "delete from hotel where hid = %s;"
             cursor.execute(query, (hid,))
+            affected_rows = cursor.rowcount
             self.conn.commit()
-            cursor.close()
-
             cursor.execute("SELECT * FROM hotel")
             result = cursor.fetchall()
             cursor.close()

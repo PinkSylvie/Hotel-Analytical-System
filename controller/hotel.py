@@ -65,6 +65,6 @@ class Hotel:
         if not hotel:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json_one(hotel)
+            result = self.make_json(hotel)
             return result
 
