@@ -13,7 +13,7 @@ class ClientDAO:
 
     def getAllClients(self):
         cursor = self.conn.cursor()
-        query = "select clid, fname, lastname, age, memberyear from client;"
+        query = "select clid, fname, lname, age, memberyear from client;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -24,17 +24,17 @@ class ClientDAO:
     def getClientById(self, clid):
         cursor = self.conn.cursor()
         # Remember to update chain to chains (testing deletes with extra table)
-        query = "select cid, fname, lastname, age, memberyear from client where clid = %s;"
+        query = "select cid, fname, lname, age, memberyear from client where clid = %s;"
         cursor.execute(query, (clid,))
         result = cursor.fetchone()
         cursor.close()
         return result
 
-    def addNewClient(self, fname, lastname, age, memberyear):
+    def addNewClient(self, fname, lname, age, memberyear):
 
         cursor = self.conn.cursor()
-        query = "insert into client (fname, lastname, age, memberyear) values (%s, %s, %s, %s);"
-        cursor.execute(query, (fname, lastname, age, memberyear))
+        query = "insert into client (fname, lname, age, memberyear) values (%s, %s, %s, %s);"
+        cursor.execute(query, (fname, lname, age, memberyear))
         self.conn.commit()
         cursor.execute("SELECT * FROM client")
         result = cursor.fetchall()
@@ -49,15 +49,15 @@ class ClientDAO:
 
             if key == "fname":
                 query += " fname = %s where clid = %s;"
-            elif key == "lastname":
-                query += " lastname = %s where clid = %s;"
+            elif key == "lname":
+                query += " lname = %s where clid = %s;"
             elif key == "age":
                 query += " age = %s where clid = %s;"
             else:
                 query += " memberyear = %s where clid = %s;"
             cursor.execute(query, (value, clid,))
             self.conn.commit()
-        query = "select clid, fname, lastname, age, memberyear from client where clid = %s;"
+        query = "select clid, fname, lname, age, memberyear from client where clid = %s;"
         cursor.execute(query, (clid,))
         result = cursor.fetchone()
         cursor.close()

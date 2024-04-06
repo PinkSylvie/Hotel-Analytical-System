@@ -43,8 +43,8 @@ class Stats:
         for t in tuples:
             D = {}
             D['hid'] = t[0]
-            D['name'] = t[1]
-            D['city'] = t[2]
+            D['hname'] = t[1]
+            D['hcity'] = t[2]
             D['total_cap'] = t[3]
             result.append(D)
         return result
@@ -54,8 +54,8 @@ class Stats:
         for t in tuples:
             D = {}
             D['hid'] = t[0]
-            D['name'] = t[1]
-            D['city'] = t[2]
+            D['hname'] = t[1]
+            D['hcity'] = t[2]
             D['reservation_count'] = t[3]
             D['percentile_rank'] = t[4]
             result.append(D)
@@ -67,7 +67,7 @@ class Stats:
             D = {}
             D['clid'] = t[0]
             D['fname'] = t[1]
-            D['lastname'] = t[2]
+            D['lname'] = t[2]
             D['age'] = t[3]
             D['memberyear'] = t[4]
             result.append(D)
@@ -79,7 +79,7 @@ class Stats:
             D = {}
             D['clid'] = t[0]
             D['fname'] = t[1]
-            D['lastname'] = t[2]
+            D['lname'] = t[2]
             D['reservation_count'] = t[3]
             result.append(D)
         return result

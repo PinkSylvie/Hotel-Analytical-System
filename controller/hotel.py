@@ -10,9 +10,9 @@ class Hotel:
         for t in tuples:
             D = {}
             D['hid'] = t[0]
-            D['chain'] = t[1]
-            D['name'] = t[2]
-            D['city'] = t[3]
+            D['chid'] = t[1]
+            D['hname'] = t[2]
+            D['hcity'] = t[3]
             result.append(D)
 
         return result
@@ -20,9 +20,9 @@ class Hotel:
     def make_json_one(self, hotel):
         result = {}
         result['hid'] = hotel[0]
-        result['chain'] = hotel[1]
-        result['name'] = hotel[2]
-        result['city'] = hotel[3]
+        result['chid'] = hotel[1]
+        result['hname'] = hotel[2]
+        result['hcity'] = hotel[3]
 
         return result
 
@@ -33,11 +33,11 @@ class Hotel:
         return answer
 
     def addNewHotel(self, data):
-        chain = data['chain']
-        name = data['name']
-        city = data['city']
+        chid = data['chid']
+        hname = data['hname']
+        hcity = data['hcity']
         dao = HotelDAO()
-        hotel = dao.addNewHotel(chain, name, city)
+        hotel = dao.addNewHotel(chid, hname, hcity)
         result = self.make_json(hotel)
         return result
 

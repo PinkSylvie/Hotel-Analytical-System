@@ -13,7 +13,7 @@ class HotelDAO:
 
     def getAllHotels(self):
         cursor = self.conn.cursor()
-        query = "select hid, chain, name, city from hotel;"
+        query = "select hid, chid, hname, hcity from hotel;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -23,17 +23,17 @@ class HotelDAO:
 
     def getHotelById(self, hid):
         cursor = self.conn.cursor()
-        query = "select hid, chain, name, city where hid = %s;"
+        query = "select hid, chid, hname, hcity where hid = %s;"
         cursor.execute(query, (hid,))
         result = cursor.fetchone()
         cursor.close()
         return result
 
-    def addNewHotel(self, chain, name, city):
+    def addNewHotel(self, chid, hname, hcity):
 
         cursor = self.conn.cursor()
-        query = "insert into hotel (chain, name, city) values (%s, %s, %s);"
-        cursor.execute(query, (chain, name, city))
+        query = "insert into hotel (chid, hname, hcity) values (%s, %s, %s);"
+        cursor.execute(query, (chid, hname, hcity))
         self.conn.commit()
         cursor.execute("SELECT * FROM hotel")
         result = cursor.fetchall()
@@ -46,16 +46,16 @@ class HotelDAO:
         for key, value in data.items():
             query = "update hotel set"
 
-            if key == "chain":
-                query += " chain = %s where hid = %s;"
-            elif key == "name":
-                query += " name = %s where hid = %s;"
+            if key == "chid":
+                query += " chid = %s where hid = %s;"
+            elif key == "hname":
+                query += " hname = %s where hid = %s;"
             else:
-                query += " city = %s where hid = %s;"
+                query += " hcity = %s where hid = %s;"
             cursor.execute(query, (value, hid,))
             self.conn.commit()
 
-        query = "select hid, chain, name, city from hotel where hid = %s;"
+        query = "select hid, chid, hname, hcity from hotel where hid = %s;"
         cursor.execute(query, (hid,))
         result = cursor.fetchone()
         cursor.close()

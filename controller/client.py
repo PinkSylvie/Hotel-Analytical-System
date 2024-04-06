@@ -11,7 +11,7 @@ class Client:
             D = {}
             D['clid'] = t[0]
             D['fname'] = t[1]
-            D['lastname'] = t[2]
+            D['lname'] = t[2]
             D['age'] = t[3]
             D['memberyear'] = t[4]
             result.append(D)
@@ -22,7 +22,7 @@ class Client:
         result = {}
         result['clid'] = client[0]
         result['fname'] = client[1]
-        result['lastname'] = client[2]
+        result['lname'] = client[2]
         result['age'] = client[3]
         result['memberyear'] = client[4]
 
@@ -36,11 +36,11 @@ class Client:
 
     def addNewClient(self, data):
         fname = data['fname']
-        lastname = data['lastname']
+        lname = data['lname']
         age = data['age']
         memberyear = data['memberyear']
         dao = ClientDAO()
-        client = dao.addNewClient(fname, lastname, age, memberyear)
+        client = dao.addNewClient(fname, lname, age, memberyear)
         result = self.make_json(client)
         return result
 

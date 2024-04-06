@@ -337,14 +337,46 @@ def handleLeastRooms():
 
 @app.route("/climp/most/capacity", methods=['GET'])
 def handleTopHotelCap():
-    handler = Stats()
-    return handler.getTopHotelCap()
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getTopHotelCap()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
 
 
 @app.route("/climp/most/reservation", methods=['GET'])
 def handleTopHotelRes():
-    handler = Stats()
-    return handler.getTopHotelRes()
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getTopHotelRes()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
 
 
 if __name__ == "__main__":
