@@ -335,18 +335,6 @@ def handleLeastRooms():
         return jsonify("Invalid JSON data provided"), 404
 
 
-@app.route("/climp/most/revenue", methods=['GET'])
-def handleTopRevenue():
-    handler = Stats()
-    return handler.getTopRevenue()
-
-
-@app.route("/climp/least/rooms", methods=['GET'])
-def handleLeastRooms():
-    handler = Stats()
-    return handler.getLeastRooms()
-
-
 @app.route("/climp/most/capacity", methods=['GET'])
 def handleTopHotelCap():
     handler = Stats()
