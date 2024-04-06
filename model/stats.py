@@ -59,27 +59,29 @@ class StatsDAO:
         cursor.close()
         return result
 
-    def getTopCreditClient(self):
+    def getTopClientDiscount(self, hid):
         cursor = self.conn.cursor()
-        query = "select * from client order by memberyear desc limit 5;"
-        cursor.execute(query)
+        # If this returns an error remove single quotes from columns
+        query = "select clid, fname, lastname, age, memberyear from client natural inner join reserve natural inner join room_unavailable natural inner join room natural inner join hotel where hid = %s order by memberyear desc limit 5;"
+        cursor.execute(query, (hid,))
         result = []
         for row in cursor:
             result.append(row)
         cursor.close()
         return result
 
-    def getTopClientDiscount(self):
+    def getTopCreditClient(self, hid):
         cursor = self.conn.cursor()
-        query = "select clid, fname, lastname, count(client.clid) as reservation from client natural inner join reserve where age < 30 and payment = 'credit card' group by clid, fname, lastname order by reservation desc limit 5;"
-        cursor.execute(query)
+        # If this returns an error remove single quotes from columns
+        query = "select clid, fname, lastname, count(reserve.clid) as reservation_count from client natural inner join reserve natural inner join room_unavailable natural inner join room natural inner join hotel where client.age < 30 and payment = 'credit card' and hid = %s group by clid, fname, lastname order by reservation_count desc limit 5;"
+        cursor.execute(query, (hid,))
         result = []
         for row in cursor:
             result.append(row)
         cursor.close()
         return result
 
-    # Global Stats
+    # Global Stats---------------------------------------------------------------------------------------------------
     def getTopRevenue(self):
         cursor = self.conn.cursor()
         query = "select chid, cname, sum(total_cost) as revenue from (((chain natural inner join hotel) natural inner join room) natural inner join roomunavailable) natural inner join reserve group by chid, cname order by sum(total_cost) desc limit 3;"
@@ -102,7 +104,7 @@ class StatsDAO:
 
     def getTopHotelCap(self):
         cursor = self.conn.cursor()
-        query = "select hid, chain, name, city,sum(capacity) as total_cap from hotel natural inner join room natural inner join roomdescription group by hid, chain, name, city order by total_cap desc limit 5;"
+        query = "select hid, name, city,sum(capacity) as total_cap from hotel natural inner join room natural inner join roomdescription group by hid, name, city order by total_cap desc limit 5;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -113,6 +115,27 @@ class StatsDAO:
     def getTopHotelRes(self):
         cursor = self.conn.cursor()
         query = "WITH HotelReservationCounts AS (SELECT h.hid, h.name, h.city, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN room_unavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.name, h.city), RankedHotels AS (SELECT *, PERCENT_RANK() OVER (ORDER BY reservation_count DESC) AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 0.1;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+
+
+    def getTopCreditClient(self):
+        cursor = self.conn.cursor()
+        query = "select clid, fname, lastname, count(client.clid) as reservation from client natural inner join reserve where age < 30 and payment = 'credit card' group by clid, fname, lastname order by reservation desc limit 5;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+
+    def getTopClientDiscount(self):
+        cursor = self.conn.cursor()
+        query = "select * from client order by memberyear desc limit 5;"
         cursor.execute(query)
         result = []
         for row in cursor:

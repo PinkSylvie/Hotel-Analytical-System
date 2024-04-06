@@ -45,10 +45,9 @@ class Stats:
         for t in tuples:
             D = {}
             D['hid'] = t[0]
-            D['chain'] = t[1]
-            D['name'] = t[2]
-            D['city'] = t[3]
-            D['total_cap'] = t[4]
+            D['name'] = t[1]
+            D['city'] = t[2]
+            D['total_cap'] = t[3]
             result.append(D)
         return result
 
@@ -59,7 +58,8 @@ class Stats:
             D['hid'] = t[0]
             D['name'] = t[1]
             D['city'] = t[2]
-            D['reservation_count'] = t[4]
+            D['reservation_count'] = t[3]
+            D['percentile_rank'] = t[4]
             result.append(D)
         return result
 
@@ -82,7 +82,7 @@ class Stats:
             D['clid'] = t[0]
             D['fname'] = t[1]
             D['lastname'] = t[2]
-            D['reservations'] = t[3]
+            D['reservation_count'] = t[3]
             result.append(D)
         return result
 
@@ -103,6 +103,7 @@ class Stats:
         access = dao.CheckAccess(hid, eid)
         return access
 
+    # Hotel ------------------------------------------------------------------------------------------------
     def getHighestPaid(self, hid):
         dao = StatsDAO()
         employee = dao.getHighestPaid(hid)
@@ -124,14 +125,15 @@ class Stats:
         result = self.make_res_json(hotel)
         return result
 
-    def getTopCreditClient(self):
+    # Client ------------------------------------------------------------------------------------------------
+    def getTopCreditClient(self, hid):
         dao = StatsDAO()
-        client = dao.getTopCreditClient()
+        client = dao.getTopCreditClient(hid)
         result = self.make_credit_json(client)
         return result
 
-    def getTopClientDiscount(self):
+    def getTopClientDiscount(self, hid):
         dao = StatsDAO()
-        client = dao.getTopClientDiscount()
+        client = dao.getTopClientDiscount(hid)
         result = self.make_discount_json(client)
         return result

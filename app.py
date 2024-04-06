@@ -197,7 +197,7 @@ def handleClients():
 
 
 @app.route("/client/<int:clid>", methods=['GET', 'PUT', 'DELETE'])
-def handleHotelById(clid):
+def handleClientById(clid):
     if request.method == 'GET':
         handler = Client()
         return handler.getClientById(clid)
@@ -248,16 +248,48 @@ def handleHighestPaid(hid):
         return jsonify("Invalid JSON data provided"), 404
 
 
-@app.route("/client/discount", methods=['GET'])
-def handleTopDiscounts():
-    handler = Stats()
-    return handler.getTopClientDiscount()
+@app.route("/hotel/<int:hid>/mostdiscount", methods=['GET'])
+def handleTopDiscounts(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckAccess(hid, eid)
+        if access:
+            return handler.getTopClientDiscount(hid)
+        else:
+            return jsonify("This employee has no access to these stats"), 404
+    except Exception as e:
+        print("Error processing request: ", e)
+        return jsonify("Invalid JSON data provided"), 404
 
 
-@app.route("/client/credit", methods=['GET'])
-def handleTopCredit():
-    handler = Stats()
-    return handler.getTopCreditClient()
+@app.route("/hotel/<int:hid>/mostcreditcard", methods=['GET'])
+def handleTopCredit(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckAccess(hid, eid)
+        if access:
+            return handler.getTopCreditClient(hid)
+        else:
+            return jsonify("This employee has no access to these stats"), 404
+    except Exception as e:
+        print("Error processing request: ", e)
+        return jsonify("Invalid JSON data provided"), 404
 
 # Global Stats---------------------------------------------------------------------------------------------------
 @app.route("/most/revenue", methods=['GET'])
@@ -272,13 +304,13 @@ def handleLeastRooms():
     return handler.getLeastRooms()
 
 
-@app.route("/hotel/capacity", methods=['GET'])
+@app.route("/most/capacity", methods=['GET'])
 def handleTopHotelCap():
     handler = Stats()
     return handler.getTopHotelCap()
 
 
-@app.route("/hotel/reservation", methods=['GET'])
+@app.route("/most/reservation", methods=['GET'])
 def handleTopHotelRes():
     handler = Stats()
     return handler.getTopHotelRes()
