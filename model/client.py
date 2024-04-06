@@ -74,7 +74,7 @@ class ClientDAO:
             return None
         else:
             query = "delete from client where clid = %s;"
-            cursor.execute(query, (client,))
+            cursor.execute(query, (clid,))
             self.conn.commit()
             cursor.close()
 
