@@ -24,7 +24,7 @@ class ClientDAO:
     def getClientById(self, clid):
         cursor = self.conn.cursor()
         # Remember to update chain to chains (testing deletes with extra table)
-        query = "select cid, fname, lname, age, memberyear from client where clid = %s;"
+        query = "select clid, fname, lname, age, memberyear from client where clid = %s;"
         cursor.execute(query, (clid,))
         result = cursor.fetchone()
         cursor.close()

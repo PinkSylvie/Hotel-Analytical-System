@@ -23,7 +23,7 @@ class HotelDAO:
 
     def getHotelById(self, hid):
         cursor = self.conn.cursor()
-        query = "select hid, chid, hname, hcity where hid = %s;"
+        query = "select hid, chid, hname, hcity from hotel where hid = %s;"
         cursor.execute(query, (hid,))
         result = cursor.fetchone()
         cursor.close()
