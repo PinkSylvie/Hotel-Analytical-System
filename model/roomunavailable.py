@@ -6,7 +6,7 @@ class RoomUnavailableDAO:
     def __init__(self):
         connection_url = "dbname=%s user=%s password=%s port=%s host=%s" % \
         (pg_config['dbname'], pg_config['user'], pg_config['password'],
-         pg_config['port'], pg_config['host'])
+         pg_config['dbport'], pg_config['host'])
         print(connection_url)
         self.conn = psycopg2.connect(connection_url)
         
