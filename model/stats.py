@@ -135,4 +135,14 @@ class StatsDAO:
             result.append(row)
         cursor.close()
         return result
+    
+    def getMostReservedHandicap(self):
+        cursor = self.conn.cursor()
+        query = ""
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
 

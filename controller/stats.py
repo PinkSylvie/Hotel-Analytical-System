@@ -83,6 +83,16 @@ class Stats:
             D['reservation_count'] = t[3]
             result.append(D)
         return result
+    
+    def make_handicaproom_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['hid'] = t[0]
+            D['cname'] = t[1]
+            D['revenue'] = t[2]
+            result.append(D)
+        return result
 
     def CheckGlobalAccess(self, eid):
         dao = StatsDAO()
@@ -140,3 +150,10 @@ class Stats:
         client = dao.getTopClientDiscount(hid)
         result = self.make_discount_json(client)
         return result
+    
+    def getTopHandicapRoom(self, hid):
+        dao = StatsDAO()
+        hotel = dao.getMostReservedHandicap(hid)
+        result = self.getTopHandicapRoom(hotel)
+        return result
+

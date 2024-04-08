@@ -1,0 +1,39 @@
+from flask import jsonify
+
+from model.login import LoginDAO
+class Login:
+    def make_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['lid'] = t[0]
+            D['eid'] = t[1]
+            D['username'] = t[2]
+            D['password'] = t[3]
+            result.append(D)
+
+        return result
+
+    def make_json_one(self,login):
+        result = {}
+        result['lid'] = login[0]
+        result['eid'] = login[1]
+        result['username'] = login[2]
+        result['password'] = login[3]
+
+        return result
+    
+    def getAllLogins(self):
+        model = LoginDAO()
+        result = model.getAllLogins()
+        answer = self.make_json(result)
+        return answer
+
+    def getLoginById(self,lid):
+        dao = LoginDAO()
+        login = dao.getLoginById(lid)
+        if not login:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_json_one(login)
+            return result
