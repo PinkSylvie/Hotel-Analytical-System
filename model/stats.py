@@ -1,7 +1,7 @@
 from flask import jsonify
-
 from config.dbconfig import pg_config
 import psycopg2
+
 class StatsDAO:
 
     def __init__(self):
@@ -15,7 +15,9 @@ class StatsDAO:
     def CheckGlobalAccess(self, eid):
 
         cursor = self.conn.cursor()
-        query = "select eid, position from (employee natural inner join hotel) natural inner join chains where eid = %s"
+        query = "select eid, position \
+                 from (employee natural inner join hotel) natural inner join chains \
+                 where eid = %s"
         cursor.execute(query, (eid,))
         employee = cursor.fetchone()
 
@@ -31,7 +33,9 @@ class StatsDAO:
     def CheckLocalAccess(self, hid, eid):
 
         cursor = self.conn.cursor()
-        query = "select hid, chid from hotel natural inner join chains where hid = %s"
+        query = "select hid, chid \
+                 from hotel natural inner join chains \
+                 where hid = %s"
         cursor.execute(query, (hid,))
         hotel = cursor.fetchone()
 
@@ -39,7 +43,9 @@ class StatsDAO:
             hhid = hotel[0]
             hchid = hotel[1]
 
-            query = "select eid, hid, chid, position from (employee natural inner join hotel) natural inner join chains where eid = %s"
+            query = "select eid, hid, chid, position \
+                     from (employee natural inner join hotel) natural inner join chains \
+                     where eid = %s"
             cursor.execute(query, (eid,))
             employee = cursor.fetchone()
 
@@ -63,9 +69,27 @@ class StatsDAO:
         return False
 
     # Local Stats
+
+    def getLeastReserve(self):
+        cursor = self.conn.cursor()
+        query = "select ruid, rid, startdate, enddate, ABS(daterange_subdiff(startdate, enddate)) as days_unavailable \
+                 from roomunavailable \
+                 order by days_unavailable ASC \
+                 limit 3"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+    
     def getHighestPaid(self, hid):
         cursor = self.conn.cursor()
-        query = "select * from employee where hid = %s and position = 'Regular' order by salary desc limit 3;"
+        query = "select * \
+                 from employee \
+                 where hid = %s and position = 'Regular' \
+                 order by salary desc \
+                 limit 3;"
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
@@ -76,7 +100,11 @@ class StatsDAO:
     def getTopClientDiscount(self, hid):
         cursor = self.conn.cursor()
         # If this returns an error remove single quotes from columns
-        query = "select clid, fname, lname, age, memberyear from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) natural inner join hotel where hid = 2 order by memberyear desc limit 5;"
+        query = "select clid, fname, lname, age, memberyear \
+                 from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) natural inner join hotel \
+                 where hid = 2 \
+                 order by memberyear desc \
+                 limit 5;"
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
@@ -87,7 +115,12 @@ class StatsDAO:
     def getTopCreditClient(self, hid):
         cursor = self.conn.cursor()
         # If this returns an error remove single quotes from columns
-        query = "select clid, fname, lname, count(reserve.clid) as reservation_count from client natural inner join reserve natural inner join roomunavailable natural inner join room natural inner join hotel where client.age < 30 and payment = 'credit card' and hid = %s group by clid, fname, lname order by reservation_count desc limit 5;"
+        query = "select clid, fname, lname, count(reserve.clid) as reservation_count \
+                 from client natural inner join reserve natural inner join roomunavailable natural inner join room natural inner join hotel \
+                 where client.age < 30 and payment = 'credit card' and hid = %s \
+                 group by clid, fname, lname \
+                 order by reservation_count desc \
+                 limit 5;"
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
@@ -98,7 +131,11 @@ class StatsDAO:
     # Global Stats---------------------------------------------------------------------------------------------------
     def getTopRevenue(self):
         cursor = self.conn.cursor()
-        query = "select chid, cname, sum(total_cost) as revenue from (((chains natural inner join hotel) natural inner join room) natural inner join roomunavailable) natural inner join reserve group by chid, cname order by sum(total_cost) desc limit 3;"
+        query = "select chid, cname, sum(total_cost) as revenue \
+                 from (((chains natural inner join hotel) natural inner join room) natural inner join roomunavailable) natural inner join reserve \
+                 group by chid, cname \
+                 order by sum(total_cost) desc \
+                 limit 3;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -108,7 +145,11 @@ class StatsDAO:
 
     def getLeastRooms(self):
         cursor = self.conn.cursor()
-        query = "select chid, cname, count(rid) as room_amount from (chains natural inner join hotel) natural inner join room group by chid, cname order by count(rid) limit 3;"
+        query = "select chid, cname, count(rid) as room_amount \
+                 from (chains natural inner join hotel) natural inner join room \
+                 group by chid, cname \
+                 order by count(rid) \
+                 limit 3;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -118,7 +159,11 @@ class StatsDAO:
 
     def getTopHotelCap(self):
         cursor = self.conn.cursor()
-        query = "select hid, hname, hcity, sum(capacity) as total_cap from hotel natural inner join room natural inner join roomdescription group by hid, hname, hcity order by total_cap desc limit 5;"
+        query = "select hid, hname, hcity, sum(capacity) as total_cap \
+                 from hotel natural inner join room natural inner join roomdescription \
+                 group by hid, hname, hcity \
+                 order by total_cap desc \
+                 limit 5;"
         cursor.execute(query)
         result = []
         for row in cursor:

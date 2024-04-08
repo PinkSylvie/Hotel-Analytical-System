@@ -73,6 +73,18 @@ class Stats:
             result.append(D)
         return result
 
+    def make_least_reserve_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['ruid'] = t[0]
+            D['rid'] = t[1]
+            D['startdate'] = t[2]
+            D['enddate'] = t[3]
+            D['days_reserve'] = t[4]
+            result.append(D)
+        return result
+
     def make_credit_json(self, tuples):
         result = []
         for t in tuples:
@@ -139,4 +151,10 @@ class Stats:
         dao = StatsDAO()
         client = dao.getTopClientDiscount(hid)
         result = self.make_discount_json(client)
+        return result
+
+    def getLeastReserve(self):
+        dao = StatsDAO()
+        ru = dao.getLeastReserve()
+        result = self.make_least_reserve_json(ru)
         return result
