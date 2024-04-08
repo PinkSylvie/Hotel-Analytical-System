@@ -223,6 +223,8 @@ def handleClientById(clid):
             print("Error processing request:", e)
             return jsonify("Can not delete record because it is referenced by other records"), 404
 
+# Room Unavailable-----------------------------------------------------------------------------------------------------------
+
 @app.route('/climp/roomunavailable', methods=['GET', 'POST'])
 def handleRoomUnavailable():
     if request.method == 'GET':
@@ -334,6 +336,27 @@ def handleTopCredit(hid):
             return handler.getTopCreditClient(hid)
         else:
             return jsonify("This employee has no access to these stats"), 404
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
+@app.route('/climp/hotel/<int:hid>/leastreserve', methods=['GET'])
+def handleLeastReserve(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+        
+        valid_key = {'eid'}
+        if not all(key in data for key in valid_key):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckLocalAccess(hid, eid)
+        if access:
+            return handler.getLeastReserve()
+        else:
+            return jsonify("This employee cannot access this statistic"), 200
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
