@@ -1,5 +1,6 @@
 from config.dbconfig import pg_config
 import psycopg2
+
 class RoomdescriptionDAO:
 
     def __init__(self):
@@ -24,6 +25,17 @@ class RoomdescriptionDAO:
         cursor.execute(query, (rdid,))
         result = cursor.fetchone()
         return result
+    
+    def addRoomdescription(self, fname, lname, age, memberyear):
+
+        cursor = self.conn.cursor()
+        query = "insert into client (fname, lname, age, memberyear) values (%s, %s, %s, %s);"
+        cursor.execute(query, (fname, lname, age, memberyear))
+        self.conn.commit()
+        cursor.execute("SELECT * FROM client")
+        result = cursor.fetchall()
+        cursor.close()
+        return result
 
     def deleteRoomdescriptionById(self, rdid):
         cursor = self.conn.cursor()
@@ -32,11 +44,11 @@ class RoomdescriptionDAO:
         result = cursor.fetchone()
         return result
     
-    def updateRoomdescriptionById(self, rdid):
+    def updateRoomdescriptionById(self, rdid, data):
         cursor = self.conn.cursor()
         
         for key, value in data.items():
-            query = "update employee set"
+            query = "update room description"
 
             if key == "rid":
                 query += " rid = %s where rid = %s;"
@@ -46,9 +58,12 @@ class RoomdescriptionDAO:
                 query += " rtype = %s where rid = %s;"
             elif key == "capacity":
                 query += " capacity = %s where rid = %s;"
-            elif key == "ishandicap":
+            else:
                 query += " ishandicap = %s where rid = %s;"
-
+            cursor.execute(query, (value, rdid,))
+            self.conn.commit()
+        query = "select rdid, fname, lname, age, memberyear from client where clid = %s;"
         cursor.execute(query, (rdid,))
         result = cursor.fetchone()
+        cursor.close()
         return result

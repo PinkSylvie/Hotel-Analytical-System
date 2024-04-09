@@ -332,6 +332,109 @@ def handleRoomById(rid):
             print("Error processing request:", e)
             return jsonify("Can not delete record because it is referenced by other records"), 404
 
+# Room Description-----------------------------------------------------------------------------------------------------------
+@app.route("/climp/roomdescription", methods=['GET', 'POST'])
+def handleRoomDescription():
+    if request.method == 'GET':
+        handler = roomdescription.Roomdescription()
+        return handler.getAllRoomdescriptions()
+    elif request.method == 'POST':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'rname', 'rtype', 'capacity', 'ishandicap'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 
+
+            handler = roomdescription.Roomdescription()
+            return handler.addRoomDescription(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+
+@app.route("/climp/roomdescription/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
+def handleRoomDescriptionById(rid):
+    if request.method == 'GET':
+        handler = roomdescription.Roomdescription()
+        return handler.getRoomdescriptionById(rid)
+    elif request.method == 'PUT':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'rname', 'rtype', 'capacity', 'ishandicap'}
+            if not all(key in data for key in valid_keys):
+                    return jsonify("Missing a key"), 404
+            
+            handler = roomdescription.Roomdescription()
+            return handler.updateRoomDescriptionById(rid, data)
+    
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid data provided"), 404
+    elif request.method == 'DELETE':
+        try:
+            handler = roomdescription.Roomdescription()
+            return handler.deleteRoomdescriptionById(lid)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Can not delete record because it is referenced by other records"), 404
+        
+# Log In-----------------------------------------------------------------------------------------------------------
+@app.route("/climp/login", methods=['GET', 'POST'])
+def handleLogIn():
+    if request.method == 'GET':
+        handler = login.Login()
+        return handler.getAllLogins()
+    elif request.method == 'POST':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'eid', 'username', 'password'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 
+
+            handler = login.Login()
+            return handler.addLogIn(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+        
+@app.route("/climp/login/<int:rid>", methods=['GET', 'POST'])
+def handleLogInById(lid):
+    if request.method == 'GET':
+        handler = login.Login()
+        return handler.getLoginById()
+    elif request.method == 'POST':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'eid', 'username', 'password'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 
+
+            handler = login.Login()
+            return handler.updateLogInById(lid, data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+    elif request.method == 'DELETE':
+        try:
+            handler = login.Login()
+            return handler.deleteLogInById(lid)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Can not delete record because it is referenced by other records"), 404
+
+
+
 # Reserve-----------------------------------------------------------------------------------------------------------
 
 # Local Stats
@@ -516,7 +619,7 @@ def handleTopHandicap():
         data = request.json
         if not data:
             return jsonify("No data provided"), 404
-         valid_keys = {'hid'}
+        valid_keys = {'hid'}
         if not all(key in data for key in valid_keys):
             return jsonify("Missing a key"), 404
         eid = data['hid']
@@ -529,16 +632,6 @@ def handleTopHandicap():
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
-
-    except Exception as e:
-
-@app.route("/most/capacity", methods=['GET'])
-def handleTopHandicap():
-    try:
-
-    except Exception as e:
-
-/most/capacity
 
 
 

@@ -37,3 +37,32 @@ class Login:
         else:
             result = self.make_json_one(login)
             return result
+        
+    def addLogIn(self, data):
+        lid = data['lid']
+        eid = data['eid']
+        username = data['username']
+        password = data['password']
+        dao = LoginDAO()
+        login = dao.addNewLogin(lid, eid, username, password)
+        result = self.make_json(login)
+        return result
+    
+    def updateLogInById(self, lid, data):
+        dao = LoginDAO()
+        login = dao.updateLoginById(lid, data)
+        
+        if not login:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_json(login)
+            return result
+        
+    def deleteLogInById(self, lid):
+        dao = LoginDAO()
+        login = dao.deleteLoginById(lid)
+        if not login:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_json(login)
+            return result
