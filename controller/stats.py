@@ -73,6 +73,18 @@ class Stats:
             result.append(D)
         return result
 
+    def make_least_reserve_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['ruid'] = t[0]
+            D['rid'] = t[1]
+            D['startdate'] = t[2]
+            D['enddate'] = t[3]
+            D['days_unavailable'] = t[4]
+            result.append(D)
+        return result
+
     def make_credit_json(self, tuples):
         result = []
         for t in tuples:
@@ -157,3 +169,11 @@ class Stats:
         result = self.getTopHandicapRoom(hotel)
         return result
 
+    def getLeastReserve(self, hid):
+        dao = StatsDAO()
+        ru = dao.getLeastReserve(hid)
+        if not ru:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_least_reserve_json(ru)
+            return result

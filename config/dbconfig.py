@@ -31,10 +31,12 @@
 #     'host' : '127.0.0.1'  
 # }
 
-pg_config = {
-    'user': 'perla',
-    'password': '4588',
-    'dbname': 'climpdbproyect',
-    'dbport': 5432,
-    'host': '127.0.0.1'
-}
+#Perlas's Database
+
+# pg_config = {
+#    'user': 'perla',
+#    'password': '4588',
+#    'dbname': 'climpdbproyect',
+#    'dbport': 5432,
+#    'host': '127.0.0.1'
+# }
