@@ -81,7 +81,7 @@ class Stats:
             D['rid'] = t[1]
             D['startdate'] = t[2]
             D['enddate'] = t[3]
-            D['days_reserve'] = t[4]
+            D['days_unavailable'] = t[4]
             result.append(D)
         return result
 
@@ -153,8 +153,11 @@ class Stats:
         result = self.make_discount_json(client)
         return result
 
-    def getLeastReserve(self):
+    def getLeastReserve(self, hid):
         dao = StatsDAO()
-        ru = dao.getLeastReserve()
-        result = self.make_least_reserve_json(ru)
-        return result
+        ru = dao.getLeastReserve(hid)
+        if not ru:
+            return jsonify("Not Found"), 404
+        else:
+            result = self.make_least_reserve_json(ru)
+            return result
