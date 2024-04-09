@@ -70,13 +70,14 @@ class StatsDAO:
 
     # Local Stats
 
-    def getLeastReserve(self):
+    def getLeastReserve(self, hid):
         cursor = self.conn.cursor()
-        query = "select ruid, rid, startdate, enddate, ABS(daterange_subdiff(startdate, enddate)) as days_unavailable \
-                 from roomunavailable \
+        query = "select ruid, rid, startdate, enddate, daterange_subdiff(enddate, startdate) as days_unavailable \
+                 from roomunavailable natural inner join room \
+                 where hid = %s \
                  order by days_unavailable ASC \
                  limit 3"
-        cursor.execute(query)
+        cursor.execute(query, (hid,))
         result = []
         for row in cursor:
             result.append(row)
