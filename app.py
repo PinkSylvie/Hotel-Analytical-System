@@ -509,41 +509,9 @@ def handleTopHotelRes():
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
-    
-@app.route("/climp/hotel/<id>/handicaproom", methods=['GET'])
-def handleTopHandicap():
-    try:
-        data = request.json
-        if not data:
-            return jsonify("No data provided"), 404
-         valid_keys = {'hid'}
-        if not all(key in data for key in valid_keys):
-            return jsonify("Missing a key"), 404
-        eid = data['hid']
-        handler = Stats()
-        access = handler.CheckGlobalAccess(eid)
-        if access:
-            return handler.getTopHotelCap()
-        else:
-            return jsonify("This employee has no access to these stats"), 200
-    except Exception as e:
-        print("Error processing request:", e)
-        return jsonify("Invalid JSON data provided"), 404
 
-    except Exception as e:
-
-@app.route("/most/capacity", methods=['GET'])
-def handleTopHandicap():
-    try:
-
-    except Exception as e:
-
-/most/capacity
-
-
-
-
-
+def create_app():
+    return app
 
 if __name__ == "__main__":
     app.run(debug=True)
