@@ -26,13 +26,13 @@ class RoomdescriptionDAO:
         result = cursor.fetchone()
         return result
     
-    def addRoomdescription(self, fname, lname, age, memberyear):
+    def addRoomdescription(self, rdid, rname, rtype, capacity, ishandicap):
 
         cursor = self.conn.cursor()
-        query = "insert into client (fname, lname, age, memberyear) values (%s, %s, %s, %s);"
-        cursor.execute(query, (fname, lname, age, memberyear))
+        query = "insert into roomdescription (rdid, rname, rtype, capacity, ishandicap) values (%s, %s, %s, %s, %s);"
+        cursor.execute(query, (rdid, rname, rtype, capacity, ishandicap))
         self.conn.commit()
-        cursor.execute("SELECT * FROM client")
+        cursor.execute("SELECT * FROM roomdescription")
         result = cursor.fetchall()
         cursor.close()
         return result
@@ -48,21 +48,21 @@ class RoomdescriptionDAO:
         cursor = self.conn.cursor()
         
         for key, value in data.items():
-            query = "update room description"
+            query = "update roomdescription"
 
-            if key == "rid":
-                query += " rid = %s where rid = %s;"
+            if key == "rdid":
+                query += " rdid = %s where rdid = %s;"
             elif key == "rname":
-                query += " rname = %s where rid = %s;"
+                query += " rname = %s where rdid = %s;"
             elif key == "rtype":
-                query += " rtype = %s where rid = %s;"
+                query += " rtype = %s where rdid = %s;"
             elif key == "capacity":
-                query += " capacity = %s where rid = %s;"
+                query += " capacity = %s where rdid = %s;"
             else:
-                query += " ishandicap = %s where rid = %s;"
+                query += " ishandicap = %s where rdid = %s;"
             cursor.execute(query, (value, rdid,))
             self.conn.commit()
-        query = "select rdid, fname, lname, age, memberyear from client where clid = %s;"
+        query = "select rdid, rname, rtype, capacity, ishandicap from roomdescription where rdid = %s;"
         cursor.execute(query, (rdid,))
         result = cursor.fetchone()
         cursor.close()
