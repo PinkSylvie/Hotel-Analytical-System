@@ -48,7 +48,7 @@ class RoomdescriptionDAO:
         cursor = self.conn.cursor()
         
         for key, value in data.items():
-            query = "update roomdescription"
+            query = "update roomdescription set"
 
             if key == "rdid":
                 query += " rdid = %s where rdid = %s;"

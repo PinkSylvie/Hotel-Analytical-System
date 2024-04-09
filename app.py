@@ -613,8 +613,8 @@ def handleTopHotelRes():
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
     
-@app.route("/climp/hotel/<id>/handicaproom", methods=['GET'])
-def handleTopHandicap():
+@app.route("/climp/hotel/<int:hid>/handicaproom", methods=['GET'])
+def handleTopHandicap(hid):
     try:
         data = request.json
         if not data:
@@ -622,20 +622,16 @@ def handleTopHandicap():
         valid_keys = {'hid'}
         if not all(key in data for key in valid_keys):
             return jsonify("Missing a key"), 404
-        eid = data['hid']
+        eid = data['eid']
         handler = Stats()
-        access = handler.CheckGlobalAccess(eid)
+        access = handler.CheckLocalAccess(hid, eid)
         if access:
-            return handler.getTopHotelCap()
+            return handler.getTopHandicapRoom(hid)
         else:
             return jsonify("This employee has no access to these stats"), 200
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
-
-
-
-
 
 
 if __name__ == "__main__":
