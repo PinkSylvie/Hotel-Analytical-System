@@ -6,6 +6,7 @@ from controller.hotel import Hotel
 from controller.client import Client
 from controller.stats import Stats
 from controller.roomunavailable import RoomUnavailable
+from controller import login, roomdescription
 from controller.room import Room
 
 app = Flask(__name__)
@@ -15,6 +16,11 @@ CORS(app)
 @app.route("/")
 def hello_world():
     return "Hello World my friends"
+
+@app.route("/climp/login", methods=['POST'])
+def handleLogin():
+    if request.method == 'POST':
+        handler = login.Login()
 
 # Chains-----------------------------------------------------------------------------------------------------------
 @app.route("/climp/chains", methods=['GET', 'POST'])
@@ -503,6 +509,39 @@ def handleTopHotelRes():
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
+    
+@app.route("/climp/hotel/<id>/handicaproom", methods=['GET'])
+def handleTopHandicap():
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+         valid_keys = {'hid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['hid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getTopHotelCap()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
+    except Exception as e:
+
+@app.route("/most/capacity", methods=['GET'])
+def handleTopHandicap():
+    try:
+
+    except Exception as e:
+
+/most/capacity
+
+
+
 
 
 

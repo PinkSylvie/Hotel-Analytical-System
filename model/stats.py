@@ -128,6 +128,16 @@ class StatsDAO:
             result.append(row)
         cursor.close()
         return result
+    
+    def getMostReservedHandicap(self):
+        cursor = self.conn.cursor()
+        query = "select rd.rname as handicap_room_name, count(*) as reservation_count from Hotel natural inner join Room natural inner join Roomdescription as rd natural inner join Reserve where rd.ishandicap = true group by rd.rname order by reservation_count desc limit 5;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
 
     # Global Stats---------------------------------------------------------------------------------------------------
     def getTopRevenue(self):
