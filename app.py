@@ -400,7 +400,7 @@ def handleLeastReserve(hid):
         data = request.json
         if not data:
             return jsonify("No data provided"), 404
-
+        
         valid_key = {'eid'}
         if not all(key in data for key in valid_key):
             return jsonify("Missing a key"), 404
@@ -408,7 +408,7 @@ def handleLeastReserve(hid):
         handler = Stats()
         access = handler.CheckLocalAccess(hid, eid)
         if access:
-            return handler.getLeastReserve()
+            return handler.getLeastReserve(hid)
         else:
             return jsonify("This employee cannot access this statistic"), 200
     except Exception as e:
