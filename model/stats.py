@@ -94,6 +94,16 @@ class StatsDAO:
             result.append(row)
         cursor.close()
         return result
+    
+    def getMostReservedHandicap(self):
+        cursor = self.conn.cursor()
+        query = "select rd.rname as handicap_room_name, count(*) as reservation_count from Hotel natural inner join Room natural inner join Roomdescription as rd natural inner join Reserve where rd.ishandicap = true group by rd.rname order by reservation_count desc limit 5;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
 
     # Global Stats---------------------------------------------------------------------------------------------------
     def getTopRevenue(self):
@@ -129,16 +139,6 @@ class StatsDAO:
     def getTopHotelRes(self):
         cursor = self.conn.cursor()
         query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN roomunavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS (SELECT *, PERCENT_RANK() OVER (ORDER BY reservation_count DESC) AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 0.1;"
-        cursor.execute(query)
-        result = []
-        for row in cursor:
-            result.append(row)
-        cursor.close()
-        return result
-    
-    def getMostReservedHandicap(self):
-        cursor = self.conn.cursor()
-        query = ""
         cursor.execute(query)
         result = []
         for row in cursor:
