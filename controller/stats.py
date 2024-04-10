@@ -106,6 +106,47 @@ class Stats:
             result.append(D)
         return result
 
+    def make_room_type_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['rtype'] = t[0]
+            D['reserved'] = t[1]
+            result.append(D)
+        return result
+
+    def make_least_guests_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['rid'] = t[0]
+            D['rname'] = t[1]
+            D['capacity'] = t[2]
+            D['total_guests'] = t[3]
+            D['ratio'] = t[4]
+            result.append(D)
+        return result
+
+    def make_payment_method_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['payment'] = t[0]
+            D['total_reservations'] = t[1]
+            D['percent'] = t[2]
+            result.append(D)
+        return result
+
+    def make_profit_month_json(self, tuples):
+        result = []
+        for t in tuples:
+            D = {}
+            D['cname'] = t[0]
+            D['reservation_month'] = t[1]
+            D['total_reservation'] = t[2]
+            result.append(D)
+        return result
+
     def CheckGlobalAccess(self, eid):
         dao = StatsDAO()
         access = dao.CheckGlobalAccess(eid)
@@ -177,3 +218,27 @@ class Stats:
         else:
             result = self.make_least_reserve_json(ru)
             return result
+
+    def getRoomType(self, hid):
+        dao = StatsDAO()
+        hotel = dao.getRoomType(hid)
+        result = self.make_room_type_json(hotel)
+        return result
+
+    def getLeastGuests(self, hid):
+        dao = StatsDAO()
+        hotel = dao.getLeastGuests(hid)
+        result = self.make_least_guests_json(hotel)
+        return result
+
+    def getProfitMonth(self):
+        dao = StatsDAO()
+        chain = dao.getProfitMonth()
+        result = self.make_profit_month_json(chain)
+        return result
+
+    def getPaymentMethod(self):
+        dao = StatsDAO()
+        chain = dao.getPaymentMethod()
+        result = self.make_payment_method_json(chain)
+        return result

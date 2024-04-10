@@ -8,7 +8,7 @@ from controller.stats import Stats
 from controller.roomunavailable import RoomUnavailable
 from controller import login, roomdescription
 from controller.room import Room
-
+from controller.reserve import Reserve
 app = Flask(__name__)
 CORS(app)
 
@@ -333,7 +333,55 @@ def handleRoomById(rid):
             return jsonify("Can not delete record because it is referenced by other records"), 404
 
 # Reserve-----------------------------------------------------------------------------------------------------------
+@app.route("/climp/reserve", methods=['GET', 'POST'])
+def handleReserve():
+    if request.method == 'GET':
+        handler = Reserve()
+        return handler.getAllReserve()
+    else:
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
 
+            valid_keys = {'ruid', 'clid', 'total_cost, payment, guests'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 404
+
+            handler = Reserve()
+            return handler.addNewReserve(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+
+
+@app.route("/climp/reserve/<int:reid>", methods=['GET', 'PUT', 'DELETE'])
+def handleReserveById(reid):
+    if request.method == 'GET':
+        handler = Reserve()
+        return handler.getReserveById(reid)
+    elif request.method == 'PUT':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+
+            valid_keys = {'ruid', 'clid', 'total_cost, payment, guests'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 404
+
+            handler = Reserve()
+            return handler.updateReserveById(reid, data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid data provided"), 404
+    else:
+        try:
+            handler = Reserve()
+            return handler.deleteReserveById(reid)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Can not delete record because it is referenced by other records"), 404
 # Local Stats
 @app.route("/climp/hotel/<int:hid>/highestpaid", methods=['GET'])
 def handleHighestPaid(hid):
@@ -421,6 +469,47 @@ def handleLeastReserve(hid):
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
 
+@app.route("/climp/hotel/<int:hid>/leastguests", methods=['GET'])
+def handleLeastGuests(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckLocalAccess(hid, eid)
+        if access:
+            return handler.getLeastGuests(hid)
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
+@app.route("/climp/hotel/<int:hid>/roomtype", methods=['GET'])
+def handleRoomType(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckLocalAccess(hid, eid)
+        if access:
+            return handler.getRoomType(hid)
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
 
 # Global Stats
 @app.route("/climp/most/revenue", methods=['GET'])
@@ -438,6 +527,48 @@ def handleTopRevenue():
         access = handler.CheckGlobalAccess(eid)
         if access:
             return handler.getTopRevenue()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
+@app.route("/climp/paymentmethod", methods=['GET'])
+def handlePaymentMethod():
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getPaymentMethod()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
+@app.route("/climp/most/profitmonth", methods=['GET'])
+def handleProfitMonth():
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckGlobalAccess(eid)
+        if access:
+            return handler.getProfitMonth()
         else:
             return jsonify("This employee has no access to these stats"), 200
     except Exception as e:
