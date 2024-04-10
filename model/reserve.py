@@ -22,7 +22,7 @@ class ReserveDAO:
     def addNewReserve(self,ruid, clid, total_cost, payment, guests):
 
         cursor = self.conn.cursor()
-        query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s, %s);"
+        query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s);"
         cursor.execute(query, (ruid, clid, total_cost, payment, guests))
         self.conn.commit()
         cursor.execute("SELECT * FROM reserve")
@@ -57,8 +57,8 @@ class ReserveDAO:
                 query += " guests = %s where reid = %s;"
             cursor.execute(query, (value,reid,))
             self.conn.commit()
-        #Remember to update chain to chains (testing deletes with extra table)
-        query = "select ruid, clid, total_cost, payment, guests from reserve where reid = %s;"
+
+        query = "select reid, ruid, clid, total_cost, payment, guests from reserve where reid = %s;"
         cursor.execute(query, (reid,))
         result = cursor.fetchone()
         cursor.close()
@@ -74,7 +74,7 @@ class ReserveDAO:
             cursor.close()
             return None
         else:
-            query = "delete from reserve where eid = %s;"
+            query = "delete from reserve where reid = %s;"
             cursor.execute(query, (reid,))
             # determine affected rows
             affected_rows = cursor.rowcount

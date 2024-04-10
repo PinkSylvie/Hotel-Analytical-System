@@ -25,7 +25,6 @@ class Reserve:
         result['payment'] = reserve[4]
         result['guests'] = reserve[5]
 
-
         return result
 
     def getAllReserve(self):

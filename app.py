@@ -335,7 +335,7 @@ def handleRoomDescription():
     if request.method == 'GET':
         handler = Roomdescription()
         return handler.getAllRoomdescriptions()
-    elif request.method == 'POST':
+    else:
         try:
             data = request.json
             if not data:
@@ -387,7 +387,7 @@ def handleLogIn():
     if request.method == 'GET':
         handler = Login()
         return handler.getAllLogins()
-    elif request.method == 'POST':
+    else:
         try:
             data = request.json
             if not data:
@@ -423,15 +423,13 @@ def handleLogInById(lid):
         except Exception as e:
             print("Error processing request:", e)
             return jsonify("Invalid JSON data provided"), 404
-    elif request.method == 'DELETE':
+    else:
         try:
             handler = Login()
             return handler.deleteLogInById(lid)
         except Exception as e:
             print("Error processing request:", e)
             return jsonify("Can not delete record because it is referenced by other records"), 404
-    else:
-        return jsonify("Invalid Operation"), 404
 
 
 
@@ -447,7 +445,7 @@ def handleReserve():
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'ruid', 'clid', 'total_cost, payment, guests'}
+            valid_keys = {'ruid', 'clid', 'total_cost', 'payment', 'guests'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
@@ -469,7 +467,7 @@ def handleReserveById(reid):
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'ruid', 'clid', 'total_cost, payment, guests'}
+            valid_keys = {'ruid', 'clid', 'total_cost', 'payment', 'guests'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
@@ -486,6 +484,26 @@ def handleReserveById(reid):
             print("Error processing request:", e)
             return jsonify("Can not delete record because it is referenced by other records"), 404
 # Local Stats
+@app.route("/climp/hotel/<int:hid>/handicaproom", methods=['GET'])
+def handleTopHandicap(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckLocalAccess(hid, eid)
+        if access:
+            return handler.getTopHandicapRoom(hid)
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
 @app.route("/climp/hotel/<int:hid>/highestpaid", methods=['GET'])
 def handleHighestPaid(hid):
     try:
@@ -744,25 +762,6 @@ def handleTopHotelRes():
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
 
-@app.route("/climp/hotel/<int:hid>/handicaproom", methods=['GET'])
-def handleTopHandicap(hid):
-    try:
-        data = request.json
-        if not data:
-            return jsonify("No data provided"), 404
-        valid_keys = {'eid'}
-        if not all(key in data for key in valid_keys):
-            return jsonify("Missing a key"), 404
-        eid = data['eid']
-        handler = Stats()
-        access = handler.CheckLocalAccess(hid, eid)
-        if access:
-            return handler.getTopHandicapRoom(hid)
-        else:
-            return jsonify("This employee has no access to these stats"), 200
-    except Exception as e:
-        print("Error processing request:", e)
-        return jsonify("Invalid JSON data provided"), 404
 
 def create_app():
     return app
