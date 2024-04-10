@@ -132,7 +132,7 @@ class StatsDAO:
         # If this returns an error remove single quotes from columns
         query = "select clid, fname, lname, age, memberyear \
                  from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) natural inner join hotel \
-                 where hid = 2 \
+                 where hid = %s \
                  order by memberyear desc \
                  limit 5;"
         cursor.execute(query, (hid,))
