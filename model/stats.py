@@ -83,7 +83,36 @@ class StatsDAO:
             result.append(row)
         cursor.close()
         return result
-    
+
+    def getRoomType(self, hid):
+        cursor = self.conn.cursor()
+        query = ("select rtype, count(reid) as reserved\
+                 from hotel natural inner join room natural inner join roomunavailable  natural inner join reserve natural inner join roomdescription\
+                 where hid = %s \
+                 group by rtype\
+                 order by reserved")
+        cursor.execute(query, (hid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+
+    def getLeastGuests(self, hid):
+        cursor = self.conn.cursor()
+        query = ("SELECT rid, rname, capacity, count(clid) as total_guests, count(clid)::float/capacity as ratio\
+                 from roomunavailable natural inner join reserve natural inner join room natural inner join roomdescription\
+                 where hid = %s \
+                 group by rid, rname, capacity\
+                 order by ratio\
+                 limit 3")
+        cursor.execute(query, (hid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+
     def getHighestPaid(self, hid):
         cursor = self.conn.cursor()
         query = "select * \
@@ -185,6 +214,41 @@ class StatsDAO:
     def getTopHotelRes(self):
         cursor = self.conn.cursor()
         query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN roomunavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS (SELECT *, PERCENT_RANK() OVER (ORDER BY reservation_count DESC) AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 0.1;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+
+    def getPaymentMethod(self):
+        cursor = self.conn.cursor()
+        query = "SELECT payment, count(*) as total_reservations, count(*)* 100.0/ sum(count(*)) over () as percent\
+                 from reserve \
+                 group by payment"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        cursor.close()
+        return result
+
+    def getProfitMonth(self):
+        cursor = self.conn.cursor()
+        query = "with profitmonth as( \
+                        SELECT cname, \
+                        extract(Month from startdate) as reservation_month, \
+                        count(*) as total_reservation, \
+                        row_number() over (partition by cname order by count(*) desc) as month_rank \
+                        from reserve \
+                        natural inner join roomunavailable \
+                        natural inner join room \
+                        natural inner join hotel \
+                        natural inner join chains \
+                        group by cname, reservation_month) \
+                 select cname, reservation_month, total_reservation \
+                 from profitmonth \
+                 where month_rank <= 3"
         cursor.execute(query)
         result = []
         for row in cursor:

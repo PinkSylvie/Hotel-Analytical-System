@@ -54,7 +54,7 @@ class Reserve:
             result = self.make_json_one(reserve)
             return result
 
-    def updateResrveById(self, reid, data):
+    def updateReserveById(self, reid, data):
         dao = ReserveDAO()
         reserve = dao.updateReserveById(reid, data)
         if not reserve:
