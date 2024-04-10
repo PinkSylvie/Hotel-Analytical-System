@@ -6,7 +6,8 @@ from controller.hotel import Hotel
 from controller.client import Client
 from controller.stats import Stats
 from controller.roomunavailable import RoomUnavailable
-from controller import login, roomdescription
+from controller.login import Login
+from controller.roomdescription import Roomdescription
 from controller.room import Room
 from controller.reserve import Reserve
 app = Flask(__name__)
@@ -16,11 +17,6 @@ CORS(app)
 @app.route("/")
 def hello_world():
     return "Hello World my friends"
-
-@app.route("/climp/login", methods=['POST'])
-def handleLogin():
-    if request.method == 'POST':
-        handler = login.Login()
 
 # Chains-----------------------------------------------------------------------------------------------------------
 @app.route("/climp/chains", methods=['GET', 'POST'])
@@ -332,6 +328,113 @@ def handleRoomById(rid):
             print("Error processing request:", e)
             return jsonify("Can not delete record because it is referenced by other records"), 404
 
+# Room Description--------------------------------------------------------------------------------------------
+
+@app.route("/climp/roomdescription", methods=['GET', 'POST'])
+def handleRoomDescription():
+    if request.method == 'GET':
+        handler = Roomdescription()
+        return handler.getAllRoomdescriptions()
+    elif request.method == 'POST':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'rname', 'rtype', 'capacity', 'ishandicap'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 
+
+            handler = Roomdescription()
+            return handler.addRoomDescription(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+
+
+@app.route("/climp/roomdescription/<int:rdid>", methods=['GET', 'PUT', 'DELETE'])
+def handleRoomDescriptionById(rdid):
+    if request.method == 'GET':
+        handler = Roomdescription()
+        return handler.getRoomdescriptionById(rdid)
+    elif request.method == 'PUT':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'rname', 'rtype', 'capacity', 'ishandicap'}
+            if not all(key in data for key in valid_keys):
+                    return jsonify("Missing a key"), 404
+            
+            handler = Roomdescription()
+            return handler.updateRoomDescriptionById(rdid, data)
+    
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid data provided"), 404
+    else:
+        try:
+            handler = Roomdescription()
+            return handler.deleteRoomdescriptionById(rdid)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Can not delete record because it is referenced by other records"), 404
+        
+# Log In-----------------------------------------------------------------------------------------------------------
+@app.route("/climp/login", methods=['GET', 'POST'])
+def handleLogIn():
+    if request.method == 'GET':
+        handler = Login()
+        return handler.getAllLogins()
+    elif request.method == 'POST':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'eid', 'username', 'password'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 
+
+            handler = Login()
+            return handler.addLogIn(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+        
+@app.route("/climp/login/<int:lid>", methods=['GET', 'PUT', 'DELETE'])
+def handleLogInById(lid):
+    if request.method == 'GET':
+        handler = Login()
+        return handler.getLoginById(lid)
+    elif request.method == 'PUT':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+            
+            valid_keys = {'eid', 'username', 'password'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"), 
+
+            handler = Login()
+            return handler.updateLogInById(lid, data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+    elif request.method == 'DELETE':
+        try:
+            handler = Login()
+            return handler.deleteLogInById(lid)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Can not delete record because it is referenced by other records"), 404
+    else:
+        return jsonify("Invalid Operation"), 404
+
+
+
 # Reserve-----------------------------------------------------------------------------------------------------------
 @app.route("/climp/reserve", methods=['GET', 'POST'])
 def handleReserve():
@@ -635,6 +738,26 @@ def handleTopHotelRes():
         access = handler.CheckGlobalAccess(eid)
         if access:
             return handler.getTopHotelRes()
+        else:
+            return jsonify("This employee has no access to these stats"), 200
+    except Exception as e:
+        print("Error processing request:", e)
+        return jsonify("Invalid JSON data provided"), 404
+
+@app.route("/climp/hotel/<int:hid>/handicaproom", methods=['GET'])
+def handleTopHandicap(hid):
+    try:
+        data = request.json
+        if not data:
+            return jsonify("No data provided"), 404
+        valid_keys = {'eid'}
+        if not all(key in data for key in valid_keys):
+            return jsonify("Missing a key"), 404
+        eid = data['eid']
+        handler = Stats()
+        access = handler.CheckLocalAccess(hid, eid)
+        if access:
+            return handler.getTopHandicapRoom(hid)
         else:
             return jsonify("This employee has no access to these stats"), 200
     except Exception as e:

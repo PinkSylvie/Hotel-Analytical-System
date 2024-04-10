@@ -1,5 +1,6 @@
 from config.dbconfig import pg_config
 import psycopg2
+
 class RoomdescriptionDAO:
 
     def __init__(self):
@@ -24,31 +25,54 @@ class RoomdescriptionDAO:
         cursor.execute(query, (rdid,))
         result = cursor.fetchone()
         return result
+    
+    def addRoomdescription(self, rname, rtype, capacity, ishandicap):
+
+        cursor = self.conn.cursor()
+        query = "insert into roomdescription (rname, rtype, capacity, ishandicap) values (%s, %s, %s, %s);"
+        cursor.execute(query, (rname, rtype, capacity, ishandicap))
+        self.conn.commit()
+        cursor.execute("SELECT * FROM roomdescription")
+        result = cursor.fetchall()
+        cursor.close()
+        return result
 
     def deleteRoomdescriptionById(self, rdid):
         cursor = self.conn.cursor()
-        query = "delete from roomdescription where rdid = %s;"
-        cursor.execute(query, (rdid,))
-        result = cursor.fetchone()
-        return result
+        select_query = "select * from roomdescription where rdid = %s;"
+        cursor.execute(select_query, (rdid,))
+        roomdesc = cursor.fetchone()
+
+        if roomdesc is None:
+            cursor.close()
+            return None
+        else:
+            query = "delete from roomdescription where rdid = %s;"
+            cursor.execute(query, (rdid,))
+            self.conn.commit()
+            cursor.execute("SELECT * FROM roomdescription")
+            result = cursor.fetchall()
+            cursor.close()
+            return result
     
-    def updateRoomdescriptionById(self, rdid):
+    def updateRoomdescriptionById(self, rdid, data):
         cursor = self.conn.cursor()
         
         for key, value in data.items():
-            query = "update employee set"
+            query = "update roomdescription set"
 
-            if key == "rid":
-                query += " rid = %s where rid = %s;"
-            elif key == "rname":
-                query += " rname = %s where rid = %s;"
+            if key == "rname":
+                query += " rname = %s where rdid = %s;"
             elif key == "rtype":
-                query += " rtype = %s where rid = %s;"
+                query += " rtype = %s where rdid = %s;"
             elif key == "capacity":
-                query += " capacity = %s where rid = %s;"
-            elif key == "ishandicap":
-                query += " ishandicap = %s where rid = %s;"
-
+                query += " capacity = %s where rdid = %s;"
+            else:
+                query += " ishandicap = %s where rdid = %s;"
+            cursor.execute(query, (value, rdid,))
+            self.conn.commit()
+        query = "select rdid, rname, rtype, capacity, ishandicap from roomdescription where rdid = %s;"
         cursor.execute(query, (rdid,))
         result = cursor.fetchone()
+        cursor.close()
         return result

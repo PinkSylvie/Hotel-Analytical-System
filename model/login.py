@@ -24,3 +24,51 @@ class LoginDAO:
         cursor.execute(query, (lid,))
         result = cursor.fetchone()
         return result
+    
+    def addNewLogin(self,employee_id_value, username_value, password_value):
+        cursor = self.conn.cursor()
+        query = "insert into login (eid, username, password) values (%s, %s, %s);"
+        cursor.execute(query, (employee_id_value, username_value, password_value))
+        self.conn.commit()
+        cursor.execute("SELECT * FROM login")
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+    
+    def updateLoginById(self, lid, data):
+        cursor = self.conn.cursor()
+
+        for key, value in data.items():
+            query = "update login set"
+
+            if key == "password":
+                query += " password = %s where lid = %s;"
+            elif key == "username":
+                query += " username = %s where lid = %s;"
+            elif key == "eid":
+                query += " eid = %s where lid = %s;"
+            cursor.execute(query, (value, lid,))
+            self.conn.commit()
+        query = "select lid, eid, username, password from login where lid = %s"
+        cursor.execute(query, (lid,))
+        result = cursor.fetchone()
+        cursor.close()
+        return result
+    
+    def deleteLoginById(self, lid):
+        cursor = self.conn.cursor()
+        select_query = "select * from login where lid = %s;"
+        cursor.execute(select_query, (lid,))
+        login = cursor.fetchone()
+
+        if login is None:
+            cursor.close()
+            return None
+        else:
+            query = "delete from login where lid = %s"
+            cursor.execute(query, (lid,))
+            self.conn.commit()
+            cursor.execute("SELECT * FROM login")
+            result = cursor.fetchall()
+            cursor.close()
+            return result
