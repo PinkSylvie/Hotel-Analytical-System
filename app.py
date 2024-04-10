@@ -612,7 +612,7 @@ def handleTopHotelRes():
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
-    
+
 @app.route("/climp/hotel/<int:hid>/handicaproom", methods=['GET'])
 def handleTopHandicap(hid):
     try:
@@ -633,6 +633,8 @@ def handleTopHandicap(hid):
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
 
+def create_app():
+    return app
 
 if __name__ == "__main__":
     app.run(debug=True)
