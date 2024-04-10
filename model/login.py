@@ -25,10 +25,10 @@ class LoginDAO:
         result = cursor.fetchone()
         return result
     
-    def addNewLogin(self, lid, employee_id_value, username_value, password_value):
+    def addNewLogin(self,employee_id_value, username_value, password_value):
         cursor = self.conn.cursor()
-        query = "insert into login (eid, username, password) values (employee_id_value, 'username_value', 'password_value');"
-        cursor.execute(query, (lid, employee_id_value, username_value, password_value))
+        query = "insert into login (eid, username, password) values (%s, %s, %s);"
+        cursor.execute(query, (employee_id_value, username_value, password_value))
         self.conn.commit()
         cursor.execute("SELECT * FROM login")
         result = cursor.fetchall()
@@ -45,19 +45,30 @@ class LoginDAO:
                 query += " password = %s where lid = %s;"
             elif key == "username":
                 query += " username = %s where lid = %s;"
-            elif query == "eid":
+            elif key == "eid":
                 query += " eid = %s where lid = %s;"
             cursor.execute(query, (value, lid,))
             self.conn.commit()
-        query = "select eid, username, password from login where lid = %s"
-        cursor.execute(query, (lid, ))
+        query = "select lid, eid, username, password from login where lid = %s"
+        cursor.execute(query, (lid,))
         result = cursor.fetchone()
         cursor.close()
         return result
     
     def deleteLoginById(self, lid):
         cursor = self.conn.cursor()
-        query = "delete from login where username = %s"
-        cursor.execute(query, (lid,))
-        result = cursor.fetchone()
-        return result
+        select_query = "select * from login where lid = %s;"
+        cursor.execute(select_query, (lid,))
+        login = cursor.fetchone()
+
+        if login is None:
+            cursor.close()
+            return None
+        else:
+            query = "delete from login where lid = %s"
+            cursor.execute(query, (lid,))
+            self.conn.commit()
+            cursor.execute("SELECT * FROM login")
+            result = cursor.fetchall()
+            cursor.close()
+            return result

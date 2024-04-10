@@ -31,21 +31,20 @@ class Roomdescription:
         answer = self.make_json(result)
         return answer
     
-    def addRoomDescription(self, rid):
-        rid = data['rid']
+    def addRoomDescription(self,data):
         rname = data['rname']
         rtype = data['rtype']
         capacity = data['capacity']
         ishandicap = data['ishandicap']
         
         dao = RoomdescriptionDAO()
-        ru = dao.addRoomdescription(rid, rname, rtype, capacity, ishandicap)
+        ru = dao.addRoomdescription(rname, rtype, capacity, ishandicap)
         result = self.make_json(ru)
         return result
     
-    def updateRoomDescriptionById(self, rid, data):
+    def updateRoomDescriptionById(self, rdid, data):
         dao = RoomdescriptionDAO()
-        ru = dao.updateRoomdescriptionById(rid, data)
+        ru = dao.updateRoomdescriptionById(rdid, data)
         if not ru:
             return jsonify("Not Found"), 404
         else:
@@ -63,9 +62,9 @@ class Roomdescription:
 
     def deleteRoomdescriptionById(self,rdid):
         dao = RoomdescriptionDAO()
-        room = dao.deleteChainById(rdid)
+        room = dao.deleteRoomdescriptionById(rdid)
         if not room:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json_one(room)
+            result = self.make_json(room)
             return result

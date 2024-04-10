@@ -26,11 +26,11 @@ class RoomdescriptionDAO:
         result = cursor.fetchone()
         return result
     
-    def addRoomdescription(self, rdid, rname, rtype, capacity, ishandicap):
+    def addRoomdescription(self, rname, rtype, capacity, ishandicap):
 
         cursor = self.conn.cursor()
-        query = "insert into roomdescription (rdid, rname, rtype, capacity, ishandicap) values (%s, %s, %s, %s, %s);"
-        cursor.execute(query, (rdid, rname, rtype, capacity, ishandicap))
+        query = "insert into roomdescription (rname, rtype, capacity, ishandicap) values (%s, %s, %s, %s);"
+        cursor.execute(query, (rname, rtype, capacity, ishandicap))
         self.conn.commit()
         cursor.execute("SELECT * FROM roomdescription")
         result = cursor.fetchall()
@@ -39,10 +39,21 @@ class RoomdescriptionDAO:
 
     def deleteRoomdescriptionById(self, rdid):
         cursor = self.conn.cursor()
-        query = "delete from roomdescription where rdid = %s;"
-        cursor.execute(query, (rdid,))
-        result = cursor.fetchone()
-        return result
+        select_query = "select * from roomdescription where rdid = %s;"
+        cursor.execute(select_query, (rdid,))
+        roomdesc = cursor.fetchone()
+
+        if roomdesc is None:
+            cursor.close()
+            return None
+        else:
+            query = "delete from roomdescription where rdid = %s;"
+            cursor.execute(query, (rdid,))
+            self.conn.commit()
+            cursor.execute("SELECT * FROM roomdescription")
+            result = cursor.fetchall()
+            cursor.close()
+            return result
     
     def updateRoomdescriptionById(self, rdid, data):
         cursor = self.conn.cursor()
@@ -50,9 +61,7 @@ class RoomdescriptionDAO:
         for key, value in data.items():
             query = "update roomdescription set"
 
-            if key == "rdid":
-                query += " rdid = %s where rdid = %s;"
-            elif key == "rname":
+            if key == "rname":
                 query += " rname = %s where rdid = %s;"
             elif key == "rtype":
                 query += " rtype = %s where rdid = %s;"

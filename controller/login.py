@@ -39,12 +39,11 @@ class Login:
             return result
         
     def addLogIn(self, data):
-        lid = data['lid']
         eid = data['eid']
         username = data['username']
         password = data['password']
         dao = LoginDAO()
-        login = dao.addNewLogin(lid, eid, username, password)
+        login = dao.addNewLogin(eid, username, password)
         result = self.make_json(login)
         return result
     
@@ -55,7 +54,7 @@ class Login:
         if not login:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(login)
+            result = self.make_json_one(login)
             return result
         
     def deleteLogInById(self, lid):

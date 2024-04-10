@@ -131,12 +131,12 @@ class StatsDAO:
     
     def getMostReservedHandicap(self, hid):
         cursor = self.conn.cursor()
-        query = "select rdid, rname, rtype, capacity, ishandicap, rd.rname as handicap_room_name, count(*) as reservation_count \
-                 from Hotel natural inner join Room natural inner join roomdescription as rd natural inner join Reserve\
-                 where rd.ishandicap = true and hid = %s\
-                 group by rd.rname \
-                 order by reservation_count desc \
-                 limit 5;"
+        query = "select rid, hid, rname, rtype, ishandicap, count(*) as total_reservations \
+                 from reserve natural inner join roomunavailable natural inner join room natural inner join  roomdescription \
+                where ishandicap = true and hid = %s \
+                group by rid, rid, hid, rname, rtype, ishandicap \
+                order by total_reservations DESC \
+                limit 5;"
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
