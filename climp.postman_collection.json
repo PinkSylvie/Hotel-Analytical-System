@@ -1,0 +1,1476 @@
+{
+	"info": {
+		"_postman_id": "29d3d36e-22fe-4717-808c-6b75a2bd10ef",
+		"name": "climp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33858794",
+		"_collection_link": "https://climp-dbproject.postman.co/workspace/climp~91ec15d0-585d-47fe-8338-4c5780e90ef5/collection/33858794-29d3d36e-22fe-4717-808c-6b75a2bd10ef?action=share&source=collection_link&creator=33858794"
+	},
+	"item": [
+		{
+			"name": "deleteChain",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/chain/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chain",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteClient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/client/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEmployee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/employee/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteHotel",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteLogin",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/login/202",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login",
+						"202"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteReserve",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/reserve/3803",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve",
+						"3803"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRoom",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/room/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRoomDescription",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription/63",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription",
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRoomUnavailable",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllChains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/chains",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllClients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/client",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllHotels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/hotel",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllLogins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllReserve",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/reserve",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/room",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRoomDescriptions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRoomUnavailable",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getChainById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/chains/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/client/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployeeById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/employee/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHotelById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLoginById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/login/202",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login",
+						"202"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReserveById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/reserve/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRoomById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/room/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRoomDescriptionById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription/63",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription",
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRoomUnavailableById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LeastRooms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/least/rooms",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"least",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostCapacity",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/capacity",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"capacity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostProfitMonth",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eid\" : 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/most/profitmonth",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"most",
+						"profitmonth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostReservation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/reservation",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostRevenue",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/revenue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"revenue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PaymentMethod",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eid\" : 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/paymentmethod",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"paymentmethod"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HandicapRoom",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 149\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/2/handicaproom",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"2",
+						"handicaproom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HighestPaid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 149\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1/highestpaid",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1",
+						"highestpaid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LeastGuests",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eid\" : 149\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1/leastguests",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1",
+						"leastguests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LeastReserve",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 149\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1/leastreserve",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1",
+						"leastreserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostCreditCard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 149\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1/mostcreditcard",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1",
+						"mostcreditcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostDiscount",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 149\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1/mostdiscount",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1",
+						"mostdiscount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RoomType",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eid\" : 149\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1/roomtype",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1",
+						"roomtype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addChain",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cname\" : \"Monster Inc\",\r\n    \"springmkup\" : 1.00,\r\n    \"summermkup\" : 1.20,\r\n    \"fallmkup\" : 1.05,\r\n    \"wintermkup\" : 1.10 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/chains",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addClient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fname\" : \"Walter\",\r\n    \"lname\" : \"White\",\r\n    \"age\" : 50,\r\n    \"memberyear\" : 10 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/client",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addEmployee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 200,\r\n    \"fname\" : \"John\",\r\n    \"lname\" : \"Doe\",\r\n    \"age\" : 40,\r\n    \"position\" : \"Regular\",\r\n    \"salary\" : 45000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addHotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chid\" : 5,\r\n    \"hname\" : \"Door\",\r\n    \"hcity\" : \"Mayagüez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 200,\r\n    \"username\" : \"climplol\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addReserve",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ruid\" : 619,\r\n    \"clid\" : 400,\r\n    \"total_cost\" : 6666.99,\r\n    \"payment\" : \"credit card\",\r\n    \"guests\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/reserve",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRoom",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 40,\r\n    \"rdid\" : 62,\r\n    \"rprice\" : 249.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/room",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRoomDescription",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rname\" : \"Double Queen Test\",\r\n    \"rtype\" : \"Premium\",\r\n    \"capacity\" : \"4\",\r\n    \"ishandicap\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRoomUnavailable",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rid\" : 400,\r\n    \"startdate\" : \"2024-01-01\",\r\n    \"enddate\" : \"2024-01-06\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateChain",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cname\" : \"Burger King\",\r\n    \"springmkup\" : 1.02,\r\n    \"summermkup\" : 1.75,\r\n    \"fallmkup\" : 1.10,\r\n    \"wintermkup\" : 1.50 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/chains/6",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateClient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fname\" : \"Jovani\",\r\n    \"lname\" : \"Vazquez\",\r\n    \"age\" : 39,\r\n    \"memberyear\" : 15 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/client/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateEmployee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 17,\r\n    \"fname\" : \"Sonic\",\r\n    \"lname\" : \"the Hedghog\",\r\n    \"age\" : 33,\r\n    \"position\" : \"Regular\",\r\n    \"salary\" : 54321.76\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/employee/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateHotel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chid\" : 6,\r\n    \"hname\" : \"Atlantis\",\r\n    \"hcity\" : \"Vieques\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLogin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 200,\r\n    \"username\" : \"ninja\",\r\n    \"password\" : \"fortnite\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/login/202",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login",
+						"202"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateReserve",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ruid\" : 4541,\r\n    \"clid\" : 162,\r\n    \"total_cost\" : 2737.15,\r\n    \"payment\" : \"cash\",\r\n    \"guests\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/reserve/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRoom",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 30,\r\n    \"rdid\" : 8,\r\n    \"rprice\" : 99.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/room/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRoomDescription",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rname\" : \"Standard King Test\",\r\n    \"rtype\" : \"Premium\",\r\n    \"capacity\" : \"2\",\r\n    \"ishandicap\" : false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription/63",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription",
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRoomUnavailable",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rid\" : 336,\r\n    \"startdate\" : \"2023-05-26\",\r\n    \"enddate\" : \"2023-06-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
