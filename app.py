@@ -15,8 +15,8 @@ CORS(app)
 
 
 @app.route("/")
-def hello_world():
-    return "Hello World my friends"
+def site_start():
+    return " Team climp - Phase 2 - CIIC 4060"
 
 # Chains-----------------------------------------------------------------------------------------------------------
 @app.route("/climp/chains", methods=['GET', 'POST'])
