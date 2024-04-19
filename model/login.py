@@ -9,6 +9,36 @@ class LoginDAO:
         print("connection_url: ", connection_url)
         self.conn = psycopg2.connect(connection_url)
 
+    def getValidLogin(self, username, password):
+        cursor = self.conn.cursor()
+        query = "select lid, eid, username, password, position from login natural inner join employee where username = %s and password = %s;"
+        cursor.execute(query, (username,password))
+        result = cursor.fetchone()
+        return result
+
+    def signUp(self,eid,username_value,password_value):
+
+        cursor = self.conn.cursor()
+        query = "SELECT COUNT(*) FROM login WHERE username = %s"
+        cursor.execute(query, (username_value,))
+        duplicate = cursor.fetchone()[0]
+        if duplicate > 0:
+            cursor.close()
+            return None
+
+        query = "insert into login (eid, username, password) values (%s, %s, %s);"
+        cursor.execute(query, (eid, username_value, password_value))
+        self.conn.commit()
+
+        cursor.execute("SELECT lid FROM login ORDER BY lid DESC LIMIT 1;")
+        lid = cursor.fetchone()[0]
+        query = "select lid, eid, username, password, position from login natural inner join employee where lid = %s;"
+        cursor.execute(query, (lid,))
+        result = cursor.fetchone()
+        cursor.close()
+        return result
+
+
     def getAllLogins(self):
         cursor = self.conn.cursor()
         query = "select lid, eid, username, password from login;"
@@ -16,6 +46,7 @@ class LoginDAO:
         result = []
         for row in cursor:
             result.append(row)
+        cursor.close()
         return result
 
     def getLoginById(self, lid):
@@ -23,6 +54,7 @@ class LoginDAO:
         query = "select lid, eid, username, password from login where lid = %s;"
         cursor.execute(query, (lid,))
         result = cursor.fetchone()
+        cursor.close()
         return result
     
     def addNewLogin(self,employee_id_value, username_value, password_value):

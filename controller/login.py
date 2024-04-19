@@ -22,6 +22,41 @@ class Login:
         result['password'] = login[3]
 
         return result
+
+    def make_json_login(self, login):
+        result = {}
+        result['lid'] = login[0]
+        result['eid'] = login[1]
+        result['username'] = login[2]
+        result['password'] = login[3]
+        result['position'] = login[4]
+
+        return result
+
+    def signUp(self,data):
+        eid = data['eid']
+        username = data['username']
+        password = data['password']
+
+        dao = LoginDAO()
+        signup = dao.signUp(eid,username,password)
+        if not signup:
+            return jsonify("Your username already exists, please try again"), 404
+        else:
+            result = self.make_json_login(signup)
+            return result
+
+
+    def getValidLogin(self, data):
+        username = data['username']
+        password = data['password']
+        dao = LoginDAO()
+        login = dao.getValidLogin(username, password)
+        if not login:
+            return jsonify("User Not Found - Try Sign Up"), 404
+        else:
+            result = self.make_json_login(login)
+            return result
     
     def getAllLogins(self):
         model = LoginDAO()

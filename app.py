@@ -16,7 +16,45 @@ CORS(app)
 
 @app.route("/")
 def site_start():
-    return " Team climp - Phase 2 - CIIC 4060"
+    return " Team climp - Phase 3 - CIIC 4060"
+# Frontend -----------------------------------------------------------------------------------------------------------
+@app.route("/climp/signup", methods=['POST'])
+
+def handlesignUP():
+    if request.method == 'POST':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+
+            valid_keys = {'eid','username','password'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a value"),
+
+            handler = Login()
+            return handler.signUp(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("This Employee ID does not exist, please try again"), 404
+@app.route("/climp/valid/login", methods=['GET'])
+
+def handleValidLogin():
+    if request.method == 'GET':
+        try:
+            data = request.json
+            if not data:
+                return jsonify("No data provided"), 404
+
+            valid_keys = {'username', 'password'}
+            if not all(key in data for key in valid_keys):
+                return jsonify("Missing a key"),
+
+            handler = Login()
+            return handler.getValidLogin(data)
+        except Exception as e:
+            print("Error processing request:", e)
+            return jsonify("Invalid JSON data provided"), 404
+
 
 # Chains-----------------------------------------------------------------------------------------------------------
 @app.route("/climp/chains", methods=['GET', 'POST'])
@@ -382,6 +420,7 @@ def handleRoomDescriptionById(rdid):
             return jsonify("Can not delete record because it is referenced by other records"), 404
         
 # Log In-----------------------------------------------------------------------------------------------------------
+
 @app.route("/climp/login", methods=['GET', 'POST'])
 def handleLogIn():
     if request.method == 'GET':
@@ -520,7 +559,7 @@ def handleHighestPaid(hid):
         if access:
             return handler.getHighestPaid(hid)
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404

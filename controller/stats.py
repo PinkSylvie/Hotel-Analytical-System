@@ -3,6 +3,11 @@ from flask import jsonify
 from model.stats import StatsDAO
 class Stats:
 
+    def make_access_json(self, acc):
+        result = {}
+        result['access'] = acc[0]
+        return result
+
     def make_revenue_json(self, tuples):
         result = []
         for t in tuples:
