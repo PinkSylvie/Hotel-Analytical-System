@@ -75,6 +75,7 @@ class Stats:
             D['lname'] = t[2]
             D['age'] = t[3]
             D['memberyear'] = t[4]
+            D['discount'] = t[5]
             result.append(D)
         return result
 

@@ -130,11 +130,15 @@ class StatsDAO:
     def getTopClientDiscount(self, hid):
         cursor = self.conn.cursor()
         # If this returns an error remove single quotes from columns
-        query = "select clid, fname, lname, age, memberyear \
-                 from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) natural inner join hotel \
-                 where hid = %s \
-                 order by memberyear desc \
-                 limit 5;"
+        query = "select distinct clid, fname, lname, age, memberyear, \
+        case when memberyear between 1 and 4 then 2 \
+        when memberyear between 5 and 9 then 5 \
+        when memberyear between 10 and 14 then 8 else 12 \
+        end as discount \
+        from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) \
+        natural inner join hotel \
+        where hid = %s order by memberyear desc limit 5;"
+
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
@@ -218,7 +222,7 @@ class StatsDAO:
 
     def getTopHotelRes(self):
         cursor = self.conn.cursor()
-        query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN roomunavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS (SELECT *, PERCENT_RANK() OVER (ORDER BY reservation_count DESC) AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 0.1;"
+        query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN roomunavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS (SELECT *, (PERCENT_RANK() OVER (ORDER BY reservation_count DESC)) * 100 AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 10;"
         cursor.execute(query)
         result = []
         for row in cursor:
