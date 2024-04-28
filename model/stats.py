@@ -222,7 +222,12 @@ class StatsDAO:
 
     def getTopHotelRes(self):
         cursor = self.conn.cursor()
-        query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN roomunavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS (SELECT *, (PERCENT_RANK() OVER (ORDER BY reservation_count DESC)) * 100 AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 10;"
+        query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(r2.reid) AS reservation_count \
+                                FROM hotel h NATURAL INNER JOIN room r NATURAL INNER JOIN roomunavailable ru \
+                                NATURAL INNER JOIN reserve r2 \
+                                GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS \
+                                    (SELECT *, (PERCENT_RANK() OVER (ORDER BY reservation_count DESC)) * 100 AS percentile_rank \
+                                     FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 10;"
         cursor.execute(query)
         result = []
         for row in cursor:
