@@ -124,15 +124,14 @@ class Stats:
             result.append(D)
         return result
 
+
+
     def make_least_guests_json(self, tuples):
         result = []
         for t in tuples:
             D = {}
             D['rid'] = t[0]
-            D['rname'] = t[1]
-            D['capacity'] = t[2]
-            D['total_guests'] = t[3]
-            D['ratio'] = t[4]
+            D['ratio'] = t[1]
             result.append(D)
         return result
 

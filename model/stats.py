@@ -98,14 +98,22 @@ class StatsDAO:
         cursor.close()
         return result
 
+    
     def getLeastGuests(self, hid):
         cursor = self.conn.cursor()
-        query = ("SELECT rid, rname, capacity, count(clid) as total_guests, count(clid)::float/capacity as ratio\
-                 from roomunavailable natural inner join reserve natural inner join room natural inner join roomdescription\
+        query = ("WITH room_reservation_stats AS ( \
+                 SELECT rid, SUM(guests) AS total_guests, \
+                 capacity * COUNT(rid) AS total_capacity_reserved \
+                 FROM room \
+                 NATURAL INNER JOIN roomunavailable \
+                 NATURAL INNER JOIN reserve \
+                 NATURAL INNER JOIN roomdescription \
                  where hid = %s \
-                 group by rid, rname, capacity\
-                 order by ratio\
-                 limit 3")
+                 GROUP BY rid, capacity ) \
+                 SELECT rid, round(cast(total_guests as numeric)/total_capacity_reserved, 2) as ratio \
+                 FROM room_reservation_stats \
+                 ORDER BY ratio \
+                 limit 3;")
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
