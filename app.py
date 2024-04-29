@@ -14,9 +14,9 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/")
-def site_start():
-    return " Team climp - Phase 3 - CIIC 4060"
+# @app.route("/")
+# def site_start():
+#     return " Team climp - Phase 3 - CIIC 4060"
 # Frontend -----------------------------------------------------------------------------------------------------------
 @app.route("/climp/signup", methods=['POST'])
 
