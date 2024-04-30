@@ -57,7 +57,7 @@ create table if not exists roomunavailable(
 
 create table if not exists reserve(
         reid serial primary key,
-        rid integer references roomunavailable(rid),
+        ruid integer references roomunavailable(ruid),
         clid integer references client(clid),
         total_cost float,
         payment varchar,
