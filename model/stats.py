@@ -258,17 +258,17 @@ class StatsDAO:
     def getProfitMonth(self):
         cursor = self.conn.cursor()
         query = "with profitmonth as( \
-                        SELECT cname, \
+                        SELECT chid, \
                         extract(Month from startdate) as reservation_month, \
                         count(*) as total_reservation, \
-                        row_number() over (partition by cname order by count(*) desc) as month_rank \
+                        row_number() over (partition by chid order by count(*) desc) as month_rank \
                         from reserve \
                         natural inner join roomunavailable \
                         natural inner join room \
                         natural inner join hotel \
                         natural inner join chains \
-                        group by cname, reservation_month) \
-                 select cname, reservation_month, total_reservation \
+                        group by chid, reservation_month) \
+                 select chid, reservation_month, total_reservation \
                  from profitmonth \
                  where month_rank <= 3"
         cursor.execute(query)
