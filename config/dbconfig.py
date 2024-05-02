@@ -55,9 +55,9 @@
 #Leonardo's Database
 
 # pg_config = {
-#     'user': 'climp',
-#     'password': '1234',
-#     'dbname': 'climpdb',
+#     'user': 'postgres',
+#     'password': 'password',
+#     'dbname': 'postgres',
 #     'dbport': 5432,
 #     'host': '127.0.0.1'
 # }
