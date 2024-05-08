@@ -1,5 +1,7 @@
 from config.dbconfig import pg_config
 import psycopg2
+
+
 class LoginDAO:
 
     def __init__(self):
@@ -12,11 +14,11 @@ class LoginDAO:
     def getValidLogin(self, username, password):
         cursor = self.conn.cursor()
         query = "select lid, eid, username, password, position from login natural inner join employee where username = %s and password = %s;"
-        cursor.execute(query, (username,password))
+        cursor.execute(query, (username, password))
         result = cursor.fetchone()
         return result
 
-    def signUp(self,eid,username_value,password_value):
+    def signUp(self, hid, fname, lname, age, position, salary, username_value, password_value):
 
         cursor = self.conn.cursor()
         query = "SELECT COUNT(*) FROM login WHERE username = %s"
@@ -26,8 +28,15 @@ class LoginDAO:
             cursor.close()
             return None
 
+        query = "insert into employee (hid,fname,lname,age,position,salary) values (%s, %s, %s, %s, %s, %s);"
+        cursor.execute(query, (hid, fname, lname, age, position, salary))
+        self.conn.commit()
+
+        query = "select eid from employee order by eid desc limit 1"
+        cursor.execute(query)
+        seid = cursor.fetchone()[0]
         query = "insert into login (eid, username, password) values (%s, %s, %s);"
-        cursor.execute(query, (eid, username_value, password_value))
+        cursor.execute(query, (seid, username_value, password_value))
         self.conn.commit()
 
         cursor.execute("SELECT lid FROM login ORDER BY lid DESC LIMIT 1;")
@@ -37,7 +46,6 @@ class LoginDAO:
         result = cursor.fetchone()
         cursor.close()
         return result
-
 
     def getAllLogins(self):
         cursor = self.conn.cursor()
@@ -56,8 +64,8 @@ class LoginDAO:
         result = cursor.fetchone()
         cursor.close()
         return result
-    
-    def addNewLogin(self,employee_id_value, username_value, password_value):
+
+    def addNewLogin(self, employee_id_value, username_value, password_value):
         cursor = self.conn.cursor()
         query = "insert into login (eid, username, password) values (%s, %s, %s);"
         cursor.execute(query, (employee_id_value, username_value, password_value))
@@ -66,7 +74,7 @@ class LoginDAO:
         result = cursor.fetchall()
         cursor.close()
         return result
-    
+
     def updateLoginById(self, lid, data):
         cursor = self.conn.cursor()
 
@@ -86,7 +94,7 @@ class LoginDAO:
         result = cursor.fetchone()
         cursor.close()
         return result
-    
+
     def deleteLoginById(self, lid):
         cursor = self.conn.cursor()
         select_query = "select * from login where lid = %s;"

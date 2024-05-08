@@ -1,6 +1,8 @@
 from flask import jsonify
 
 from model.login import LoginDAO
+
+
 class Login:
     def make_json(self, tuples):
         result = []
@@ -14,7 +16,7 @@ class Login:
 
         return result
 
-    def make_json_one(self,login):
+    def make_json_one(self, login):
         result = {}
         result['lid'] = login[0]
         result['eid'] = login[1]
@@ -33,19 +35,23 @@ class Login:
 
         return result
 
-    def signUp(self,data):
-        eid = data['eid']
+    def signUp(self, data):
+        hid = data['hid']
+        fname = data['fname']
+        lname = data['lname']
+        age = data['age']
+        position = data['position']
+        salary = data['salary']
         username = data['username']
         password = data['password']
 
         dao = LoginDAO()
-        signup = dao.signUp(eid,username,password)
+        signup = dao.signUp(hid, fname, lname, age, position, salary, username, password)
         if not signup:
             return jsonify("Your username already exists, please try again"), 404
         else:
             result = self.make_json_login(signup)
             return result
-
 
     def getValidLogin(self, data):
         username = data['username']
@@ -57,14 +63,14 @@ class Login:
         else:
             result = self.make_json_login(login)
             return result
-    
+
     def getAllLogins(self):
         model = LoginDAO()
         result = model.getAllLogins()
         answer = self.make_json(result)
         return answer
 
-    def getLoginById(self,lid):
+    def getLoginById(self, lid):
         dao = LoginDAO()
         login = dao.getLoginById(lid)
         if not login:
@@ -72,7 +78,7 @@ class Login:
         else:
             result = self.make_json_one(login)
             return result
-        
+
     def addLogIn(self, data):
         eid = data['eid']
         username = data['username']
@@ -81,17 +87,17 @@ class Login:
         login = dao.addNewLogin(eid, username, password)
         result = self.make_json(login)
         return result
-    
+
     def updateLogInById(self, lid, data):
         dao = LoginDAO()
         login = dao.updateLoginById(lid, data)
-        
+
         if not login:
             return jsonify("Not Found"), 404
         else:
             result = self.make_json_one(login)
             return result
-        
+
     def deleteLogInById(self, lid):
         dao = LoginDAO()
         login = dao.deleteLoginById(lid)
