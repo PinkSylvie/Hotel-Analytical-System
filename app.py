@@ -31,7 +31,7 @@ def handlesignUP():
 
             valid_keys = {'hid', 'fname', 'lname', 'age', 'position', 'salary', 'username', 'password'}
             if not all(key in data for key in valid_keys):
-                return jsonify("Missing a value"),
+                return jsonify("Missing a value"),404
 
             handler = Login()
             return handler.signUp(data)
@@ -443,7 +443,7 @@ def handleLogIn():
 
             valid_keys = {'eid', 'username', 'password'}
             if not all(key in data for key in valid_keys):
-                return jsonify("Missing a key"),
+                return jsonify("Missing a key"),404
 
             handler = Login()
             return handler.addLogIn(data)
@@ -465,7 +465,7 @@ def handleLogInById(lid):
 
             valid_keys = {'eid', 'username', 'password'}
             if not all(key in data for key in valid_keys):
-                return jsonify("Missing a key"),
+                return jsonify("Missing a key"),404
 
             handler = Login()
             return handler.updateLogInById(lid, data)
