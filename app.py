@@ -31,7 +31,7 @@ def handlesignUP():
 
             valid_keys = {'hid', 'fname', 'lname', 'age', 'position', 'salary', 'username', 'password'}
             if not all(key in data for key in valid_keys):
-                return jsonify("Missing a value"),
+                return jsonify("Missing a value"),404
 
             handler = Login()
             return handler.signUp(data)
@@ -108,7 +108,7 @@ def handleChainById(chid):
             return handler.deleteChainById(chid)
         except Exception as e:
             print("Error processing request:", e)
-            return jsonify("Can not delete record because it is referenced by other records"), 200
+            return jsonify("Can not delete record because it is referenced by other records"), 404
 
 
 # Employee-----------------------------------------------------------------------------------------------------------
@@ -319,7 +319,7 @@ def handleRoomUnavailableByRuid(ruid):
             return handler.deleteRoomUnavailableByRuid(ruid)
         except Exception as e:
             print("Error processing request:", e)
-            return jsonify("Can not delete record because it is referenced by other records"), 200
+            return jsonify("Can not delete record because it is referenced by other records"), 404
 
 
 # Room-----------------------------------------------------------------------------------------------------------
@@ -443,7 +443,7 @@ def handleLogIn():
 
             valid_keys = {'eid', 'username', 'password'}
             if not all(key in data for key in valid_keys):
-                return jsonify("Missing a key"),
+                return jsonify("Missing a key"),404
 
             handler = Login()
             return handler.addLogIn(data)
@@ -465,7 +465,7 @@ def handleLogInById(lid):
 
             valid_keys = {'eid', 'username', 'password'}
             if not all(key in data for key in valid_keys):
-                return jsonify("Missing a key"),
+                return jsonify("Missing a key"),404
 
             handler = Login()
             return handler.updateLogInById(lid, data)
@@ -549,7 +549,7 @@ def handleTopHandicap(hid):
         if access:
             return handler.getTopHandicapRoom(hid)
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -637,7 +637,7 @@ def handleLeastReserve(hid):
         if access:
             return handler.getLeastReserve(hid)
         else:
-            return jsonify("This employee cannot access this statistic"), 200
+            return jsonify("This employee cannot access this statistic"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -659,7 +659,7 @@ def handleLeastGuests(hid):
         if access:
             return handler.getLeastGuests(hid)
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -681,7 +681,7 @@ def handleRoomType(hid):
         if access:
             return handler.getRoomType(hid)
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -704,7 +704,7 @@ def handleTopRevenue():
         if access:
             return handler.getTopRevenue()
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -726,7 +726,7 @@ def handlePaymentMethod():
         if access:
             return handler.getPaymentMethod()
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -748,7 +748,7 @@ def handleProfitMonth():
         if access:
             return handler.getProfitMonth()
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -770,7 +770,7 @@ def handleLeastRooms():
         if access:
             return handler.getLeastRooms()
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -792,7 +792,7 @@ def handleTopHotelCap():
         if access:
             return handler.getTopHotelCap()
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
@@ -814,7 +814,7 @@ def handleTopHotelRes():
         if access:
             return handler.getTopHotelRes()
         else:
-            return jsonify("This employee has no access to these stats"), 200
+            return jsonify("This employee has no access to these stats"), 404
     except Exception as e:
         print("Error processing request:", e)
         return jsonify("Invalid JSON data provided"), 404
