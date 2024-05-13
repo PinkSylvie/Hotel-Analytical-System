@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "c613671a-f555-43fb-8195-172916d64465",
+		"name": "PUT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34115246",
+		"_collection_link": "https://climp-dbproject.postman.co/workspace/climp~91ec15d0-585d-47fe-8338-4c5780e90ef5/collection/34115246-c613671a-f555-43fb-8195-172916d64465?action=share&source=collection_link&creator=34115246"
+	},
+	"item": [
+		{
+			"name": "updateRoomUnavailable",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rid\" : 336,\r\n    \"startdate\" : \"2023-05-26\",\r\n    \"enddate\" : \"2023-06-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRoomDescription",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rname\" : \"Standard King Test\",\r\n    \"rtype\" : \"Premium\",\r\n    \"capacity\" : \"2\",\r\n    \"ishandicap\" : false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription/63",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription",
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRoom",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 30,\r\n    \"rdid\" : 8,\r\n    \"rprice\" : 99.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/room/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateReserve",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ruid\" : 4541,\r\n    \"clid\" : 162,\r\n    \"total_cost\" : 2737.15,\r\n    \"payment\" : \"cash\",\r\n    \"guests\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/reserve/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLogin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 200,\r\n    \"username\" : \"ninja\",\r\n    \"password\" : \"fortnite\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/login/202",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login",
+						"202"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateHotel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chid\" : 6,\r\n    \"hname\" : \"Atlantis\",\r\n    \"hcity\" : \"Vieques\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateEmployee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 17,\r\n    \"fname\" : \"Sonic\",\r\n    \"lname\" : \"the Hedghog\",\r\n    \"age\" : 33,\r\n    \"position\" : \"Regular\",\r\n    \"salary\" : 54321.76\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/employee/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateClient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fname\" : \"Jovani\",\r\n    \"lname\" : \"Vazquez\",\r\n    \"age\" : 39,\r\n    \"memberyear\" : 15 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/client/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateChain",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cname\" : \"Serial\",\r\n    \"springmkup\" : 1,\r\n    \"summermkup\" : 2,\r\n    \"fallmkup\" : 3,\r\n    \"wintermkup\" : 4 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/chains/6",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

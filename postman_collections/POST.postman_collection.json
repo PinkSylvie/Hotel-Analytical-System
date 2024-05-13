@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "327af531-2592-4f5d-b04f-e6b5813bacee",
+		"name": "POST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34115246",
+		"_collection_link": "https://climp-dbproject.postman.co/workspace/climp~91ec15d0-585d-47fe-8338-4c5780e90ef5/collection/34115246-327af531-2592-4f5d-b04f-e6b5813bacee?action=share&source=collection_link&creator=34115246"
+	},
+	"item": [
+		{
+			"name": "addRoomUnavailable",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rid\" : 400,\r\n    \"startdate\" : \"2024-01-01\",\r\n    \"enddate\" : \"2024-01-06\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRoomDescription",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rname\" : \"Double Queen Test\",\r\n    \"rtype\" : \"Premium\",\r\n    \"capacity\" : \"4\",\r\n    \"ishandicap\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRoom",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 40,\r\n    \"rdid\" : 62,\r\n    \"rprice\" : 249.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/room",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addReserve",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ruid\" : 5001,\r\n    \"clid\" : 400,\r\n    \"total_cost\" : 6666.99,\r\n    \"payment\" : \"credit card\",\r\n    \"guests\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/reserve",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 212,\r\n    \"username\" : \"climplol\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addHotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chid\" : 5,\r\n    \"hname\" : \"Door\",\r\n    \"hcity\" : \"Mayagüez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/hotel",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addEmployee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 40,\r\n    \"fname\" : \"John\",\r\n    \"lname\" : \"Doe\",\r\n    \"age\" : 40,\r\n    \"position\" : \"Regular\",\r\n    \"salary\" : 45000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addClient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fname\" : \"Walter\",\r\n    \"lname\" : \"White\",\r\n    \"age\" : 50,\r\n    \"memberyear\" : 10 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/client",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addChain",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cname\" : \"Monster Inc\",\r\n    \"springmkup\" : 1.00,\r\n    \"summermkup\" : 1.20,\r\n    \"fallmkup\" : 1.05,\r\n    \"wintermkup\" : 1.10 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/chains",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addSignup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hid\" : 3,\r\n    \"fname\" : \"John\",\r\n    \"lname\" : \"Doe\",\r\n    \"age\" : 40,\r\n    \"position\" : \"Administrator\",\r\n    \"salary\" : 45000.00,\r\n    \"username\" : \"climploli\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
