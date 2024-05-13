@@ -41,7 +41,7 @@ class Client:
         memberyear = data['memberyear']
         dao = ClientDAO()
         client = dao.addNewClient(fname, lname, age, memberyear)
-        result = self.make_json(client)
+        result = self.make_json_one(client)
         return result
 
     def getClientById(self, clid):
