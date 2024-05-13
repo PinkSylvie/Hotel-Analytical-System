@@ -41,7 +41,7 @@ class Reserve:
         guests = data['guests']
         dao = ReserveDAO()
         chain = dao.addNewReserve(ruid,clid,total_cost,payment,guests)
-        result = self.make_json(chain)
+        result = self.make_json_one(chain)
         return result
 
     def getReserveById(self, reid):

@@ -35,7 +35,8 @@ class RoomDAO:
         query = "insert into room (hid, rdid, rprice) values (%s, %s, %s);"
         cursor.execute(query, (hid, rdid, rprice))
         self.conn.commit()
-        cursor.execute("SELECT * FROM room ORDER BY ruid DESC LIMIT 1")
+        query = "SELECT * FROM room ORDER BY ruid DESC LIMIT 1"
+        cursor.execute(query)
         result = cursor.fetchone()
         cursor.close()
         return result

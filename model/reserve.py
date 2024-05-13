@@ -25,7 +25,8 @@ class ReserveDAO:
         query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s);"
         cursor.execute(query, (ruid, clid, total_cost, payment, guests))
         self.conn.commit()
-        cursor.execute("SELECT * FROM reserve ORDER BY ruid DESC LIMIT 1")
+        query = "SELECT * FROM reserve ORDER BY ruid DESC LIMIT 1"
+        cursor.execute(query)
         result = cursor.fetchone()
         cursor.close()
         return result
