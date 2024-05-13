@@ -8,7 +8,9 @@
 - Ian G. Colon Rosado
 
 ## The team's Heroku database credentials are:
-### Host:
+## Frontend Heroku Hostname:
+- https://climp-front-06715f2c93b9.herokuapp.com/
+### REST API Host:
 - ceu9lmqblp8t3q.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com
 ### Database:
 - d63o0o6lppupdf
@@ -19,7 +21,7 @@
 ### Password:
 - pb325f14052d7ee01401a13ccdbc85f96faadd4f17132852aafe33d01ae940f27
 
-## Heroku Hostname:
+## REST API Heroku Hostname:
 - https://climp-a4394f63aad7.herokuapp.com/
 
 ## To connect DataGrip to Heroku:
