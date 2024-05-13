@@ -67,13 +67,21 @@ class LoginDAO:
 
     def addNewLogin(self, employee_id_value, username_value, password_value):
         cursor = self.conn.cursor()
-        query = "insert into login (eid, username, password) values (%s, %s, %s);"
-        cursor.execute(query, (employee_id_value, username_value, password_value))
-        self.conn.commit()
-        cursor.execute("SELECT * FROM login")
-        result = cursor.fetchall()
-        cursor.close()
-        return result
+        query ="select count(*) from login where eid = %s"
+        cursor.execute(query, (employee_id_value,))
+        check = cursor.fetchone()[0]
+        if check == 0:
+            query = "insert into login (eid, username, password) values (%s, %s, %s);"
+            cursor.execute(query, (employee_id_value, username_value, password_value))
+            self.conn.commit()
+            cursor.execute("SELECT * FROM login ORDER BY lid DESC LIMIT 1")
+            result = cursor.fetchone()
+            cursor.close()
+            return result
+        else:
+            cursor.close()
+            return None
+
 
     def updateLoginById(self, lid, data):
         cursor = self.conn.cursor()
@@ -108,7 +116,8 @@ class LoginDAO:
             query = "delete from login where lid = %s"
             cursor.execute(query, (lid,))
             self.conn.commit()
-            cursor.execute("SELECT * FROM login")
-            result = cursor.fetchall()
+            # cursor.execute("SELECT * FROM login")
+            # result = cursor.fetchall()
+            result = lid
             cursor.close()
             return result

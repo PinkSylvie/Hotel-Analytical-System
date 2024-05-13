@@ -85,8 +85,11 @@ class Login:
         password = data['password']
         dao = LoginDAO()
         login = dao.addNewLogin(eid, username, password)
-        result = self.make_json(login)
-        return result
+        if not login:
+            return jsonify("Employee already has account"), 200
+        else:
+            result = self.make_json_one(login)
+            return result
 
     def updateLogInById(self, lid, data):
         dao = LoginDAO()
@@ -104,5 +107,5 @@ class Login:
         if not login:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(login)
+            result = "Successfully deleted login with ID " + str(login) + "!"
             return result

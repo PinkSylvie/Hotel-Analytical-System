@@ -40,9 +40,12 @@ class Reserve:
         payment = data['payment']
         guests = data['guests']
         dao = ReserveDAO()
-        chain = dao.addNewReserve(ruid,clid,total_cost,payment,guests)
-        result = self.make_json_one(chain)
-        return result
+        reserve = dao.addNewReserve(ruid,clid,total_cost,payment,guests)
+        if not reserve:
+            return jsonify("Room is reserved by someone else"), 200
+        else:
+            result = self.make_json_one(reserve)
+            return result
 
     def getReserveById(self, reid):
         dao = ReserveDAO()
@@ -68,5 +71,5 @@ class Reserve:
         if not reserve:
             return jsonify("Not Found"), 404
         else:
-            result = "Succesfully deleted reservation with id  " + str(reid) + "!"
+            result = "Succesfully deleted reservation with ID  " + str(reid) + "!"
             return result

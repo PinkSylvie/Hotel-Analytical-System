@@ -25,15 +25,15 @@ class RoomdescriptionDAO:
         cursor.execute(query, (rdid,))
         result = cursor.fetchone()
         return result
-    
+
     def addRoomdescription(self, rname, rtype, capacity, ishandicap):
 
         cursor = self.conn.cursor()
         query = "insert into roomdescription (rname, rtype, capacity, ishandicap) values (%s, %s, %s, %s);"
         cursor.execute(query, (rname, rtype, capacity, ishandicap))
         self.conn.commit()
-        cursor.execute("SELECT * FROM roomdescription")
-        result = cursor.fetchall()
+        cursor.execute("SELECT * FROM roomdescription ORDER BY rdid DESC LIMIT 1")
+        result = cursor.fetchone()
         cursor.close()
         return result
 
@@ -50,8 +50,7 @@ class RoomdescriptionDAO:
             query = "delete from roomdescription where rdid = %s;"
             cursor.execute(query, (rdid,))
             self.conn.commit()
-            cursor.execute("SELECT * FROM roomdescription")
-            result = cursor.fetchall()
+            result = rdid
             cursor.close()
             return result
     

@@ -22,14 +22,20 @@ class ReserveDAO:
     def addNewReserve(self,ruid, clid, total_cost, payment, guests):
 
         cursor = self.conn.cursor()
-        query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s);"
-        cursor.execute(query, (ruid, clid, total_cost, payment, guests))
-        self.conn.commit()
-        query = "SELECT * FROM reserve ORDER BY ruid DESC LIMIT 1"
-        cursor.execute(query)
-        result = cursor.fetchone()
-        cursor.close()
-        return result
+        query ="select count(*) from reserve where ruid = %s"
+        cursor.execute(query, (ruid,))
+        check = cursor.fetchone()[0]
+        if check == 0:
+            query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s);"
+            cursor.execute(query, (ruid, clid, total_cost, payment, guests))
+            self.conn.commit()
+            cursor.execute("SELECT * FROM reserve ORDER BY ruid DESC LIMIT 1")
+            result = cursor.fetchone()
+            cursor.close()
+            return result
+        else:
+            cursor.close()
+            return None
 
 
     def getReserveById(self, reid):
