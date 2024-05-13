@@ -42,7 +42,7 @@ class Reserve:
         dao = ReserveDAO()
         reserve = dao.addNewReserve(ruid,clid,total_cost,payment,guests)
         if not reserve:
-            return jsonify("Room is reserved by someone else"), 200
+            return jsonify("Room is reserved by someone else"), 404
         else:
             result = self.make_json_one(reserve)
             return result
