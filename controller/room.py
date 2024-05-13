@@ -64,6 +64,6 @@ class Room:
         if not room:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(room)
+            result = "Succesfully deleted room with id  " + str(rid) + "!"
             return result
 

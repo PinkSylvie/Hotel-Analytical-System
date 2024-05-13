@@ -44,9 +44,9 @@ class Reserve:
         result = self.make_json(chain)
         return result
 
-    def getReserveById(self,eid):
+    def getReserveById(self, reid):
         dao = ReserveDAO()
-        reserve = dao.getReserveById(eid)
+        reserve = dao.getReserveById(reid)
         if not reserve:
             return jsonify("Not Found"), 404
         else:
@@ -62,11 +62,11 @@ class Reserve:
             result = self.make_json_one(reserve)
             return result
 
-    def deleteReserveById(self,eid):
+    def deleteReserveById(self, reid):
         dao = ReserveDAO()
-        reserve = dao.deleteReserveById(eid)
+        reserve = dao.deleteReserveById(reid)
         if not reserve:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(reserve)
+            result = "Succesfully deleted reservation with id  " + str(reid) + "!"
             return result
