@@ -83,11 +83,8 @@ class Stats:
         result = []
         for t in tuples:
             D = {}
-            D['ruid'] = t[0]
-            D['rid'] = t[1]
-            D['startdate'] = t[2]
-            D['enddate'] = t[3]
-            D['days_unavailable'] = t[4]
+            D['rid'] = t[0]
+            D['days_unavailable'] = t[1]
             result.append(D)
         return result
 
