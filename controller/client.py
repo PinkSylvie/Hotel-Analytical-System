@@ -68,7 +68,7 @@ class Client:
         if not client:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(client)
+            result = "Succesfully deleted client with id " + str(clid) + "!"
             return result
 
 
