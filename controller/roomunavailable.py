@@ -63,15 +63,5 @@ class RoomUnavailable:
         else:
             result = "Succesfully deleted room unavailable with id " + str(ruid) + "!"
             return result
-        
-    def getByRid(self, rid):
-        dao = RoomUnavailableDAO()
-        ru = dao.getByRid(rid)
-        if not ru:
-            return jsonify("Not Found"), 404
-        else:
-            result = self.make_json_one(ru)
-            return result
-    
     
     
