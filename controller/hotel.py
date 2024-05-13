@@ -38,7 +38,7 @@ class Hotel:
         hcity = data['hcity']
         dao = HotelDAO()
         hotel = dao.addNewHotel(chid, hname, hcity)
-        result = self.make_json(hotel)
+        result = self.make_json_one(hotel)
         return result
 
     def getHotelById(self, hid):
