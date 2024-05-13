@@ -79,7 +79,7 @@ def handleChains():
             return handler.addNewChain(data)
         except Exception as e:
             print("Error processing request:", e)
-            return jsonify("Invalid JSON data provided"), 404
+            return jsonify("Invalid JSON data provided:",e), 404
 
 
 @app.route("/climp/chains/<int:chid>", methods=['GET', 'PUT', 'DELETE'])

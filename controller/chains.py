@@ -43,7 +43,7 @@ class Chains:
         wintermkup = data['wintermkup']
         dao = ChainsDAO()
         chain = dao.addNewChain(cname,springmkup,summermkup,fallmkup,wintermkup)
-        result = self.make_json(chain)
+        result = self.make_json_one(chain)
         return result
 
     def getChainById(self,chid):
@@ -70,5 +70,4 @@ class Chains:
         if not chain:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(chain)
-            return result
+            return jsonify("Successfully deleted chain with ID "+ str(chain) + "!"), 200

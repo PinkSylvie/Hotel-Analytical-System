@@ -25,8 +25,9 @@ class EmployeeDAO:
         query = "insert into employee (hid,fname,lname,age,position,salary) values (%s, %s, %s, %s, %s, %s);"
         cursor.execute(query, (hid,fname,lname,age,position,salary))
         self.conn.commit()
-        cursor.execute("SELECT * FROM employee")
-        result = cursor.fetchall()
+        query = "select * from employee order by eid desc limit 1"
+        cursor.execute(query)
+        result = cursor.fetchone()
         cursor.close()
         return result
 
@@ -81,8 +82,7 @@ class EmployeeDAO:
             # determine affected rows
             affected_rows = cursor.rowcount
             self.conn.commit()
-            cursor.execute("SELECT * FROM employee")
-            result = cursor.fetchall()
+            result = eid
             cursor.close()
             return result
 
