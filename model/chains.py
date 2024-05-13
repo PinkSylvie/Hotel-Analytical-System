@@ -34,8 +34,9 @@ class ChainsDAO:
         query = "insert into chains (cname, springmkup, summermkup, fallmkup, wintermkup) values (%s, %s, %s, %s, %s);"
         cursor.execute(query, (cname, springmkup, summermkup, fallmkup, wintermkup))
         self.conn.commit()
-        cursor.execute("SELECT * FROM chains")
-        result = cursor.fetchall()
+        query = "select * from chains order by chid desc limit 1"
+        cursor.execute(query)
+        result = cursor.fetchone()
         cursor.close()
         return result
 
@@ -76,8 +77,7 @@ class ChainsDAO:
             query = "delete from chains where chid = %s;"
             cursor.execute(query, (chid,))
             self.conn.commit()
-            cursor.execute("SELECT * FROM chains")
-            result = cursor.fetchall()
+            result = chid
             cursor.close()
             return result
 

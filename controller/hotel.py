@@ -38,7 +38,7 @@ class Hotel:
         hcity = data['hcity']
         dao = HotelDAO()
         hotel = dao.addNewHotel(chid, hname, hcity)
-        result = self.make_json(hotel)
+        result = self.make_json_one(hotel)
         return result
 
     def getHotelById(self, hid):
@@ -65,6 +65,6 @@ class Hotel:
         if not hotel:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(hotel)
+            result = "Succesfully deleted hotel with id " + str(hid) + "!"
             return result
 

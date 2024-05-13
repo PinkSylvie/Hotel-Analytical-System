@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "4a7d89d3-1fd7-46be-8fa0-cd1915526ced",
+		"name": "Global Statistics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34115246",
+		"_collection_link": "https://climp-dbproject.postman.co/workspace/climp~91ec15d0-585d-47fe-8338-4c5780e90ef5/collection/34115246-4a7d89d3-1fd7-46be-8fa0-cd1915526ced?action=share&source=collection_link&creator=34115246"
+	},
+	"item": [
+		{
+			"name": "PaymentMethod",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eid\" : 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/paymentmethod",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"paymentmethod"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostRevenue",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/revenue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"revenue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostReservation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/reservation",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostProfitMonth",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eid\" : 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/profitmonth",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"profitmonth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MostCapacity",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/most/capacity",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"most",
+						"capacity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LeastRooms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/climp/least/rooms",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"least",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

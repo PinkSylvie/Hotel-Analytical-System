@@ -36,8 +36,9 @@ class ClientDAO:
         query = "insert into client (fname, lname, age, memberyear) values (%s, %s, %s, %s);"
         cursor.execute(query, (fname, lname, age, memberyear))
         self.conn.commit()
-        cursor.execute("SELECT * FROM client")
-        result = cursor.fetchall()
+        # change
+        cursor.execute("SELECT * FROM client order by clid desc limit 1")
+        result = cursor.fetchone()
         cursor.close()
         return result
 
@@ -77,8 +78,8 @@ class ClientDAO:
             cursor.execute(query, (clid,))
             affected_rows = cursor.rowcount
             self.conn.commit()
-            cursor.execute("SELECT * FROM client")
-            result = cursor.fetchall()
+            # cursor.execute("SELECT * FROM client")
+            result = clid
             cursor.close()
             return result
 

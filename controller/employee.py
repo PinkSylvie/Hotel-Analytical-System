@@ -43,8 +43,8 @@ class Employee:
         position = data['position']
         salary = data['salary']
         dao = EmployeeDAO()
-        chain = dao.addNewEmployee(hid,fname,lname,age,position,salary)
-        result = self.make_json(chain)
+        employee = dao.addNewEmployee(hid,fname,lname,age,position,salary)
+        result = self.make_json_one(employee)
         return result
 
     def getEmployeeById(self,eid):
@@ -71,5 +71,4 @@ class Employee:
         if not employee:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(employee)
-            return result
+            return jsonify("Successfully deleted employee with ID " + str(employee) + "!"), 200

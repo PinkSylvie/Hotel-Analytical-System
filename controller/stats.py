@@ -3,6 +3,11 @@ from flask import jsonify
 from model.stats import StatsDAO
 class Stats:
 
+    def make_access_json(self, acc):
+        result = {}
+        result['access'] = acc[0]
+        return result
+
     def make_revenue_json(self, tuples):
         result = []
         for t in tuples:
@@ -70,6 +75,7 @@ class Stats:
             D['lname'] = t[2]
             D['age'] = t[3]
             D['memberyear'] = t[4]
+            D['discount'] = t[5]
             result.append(D)
         return result
 
@@ -118,15 +124,14 @@ class Stats:
             result.append(D)
         return result
 
+
+
     def make_least_guests_json(self, tuples):
         result = []
         for t in tuples:
             D = {}
             D['rid'] = t[0]
-            D['rname'] = t[1]
-            D['capacity'] = t[2]
-            D['total_guests'] = t[3]
-            D['ratio'] = t[4]
+            D['ratio'] = t[1]
             result.append(D)
         return result
 
@@ -144,7 +149,7 @@ class Stats:
         result = []
         for t in tuples:
             D = {}
-            D['cname'] = t[0]
+            D['chid'] = t[0]
             D['reservation_month'] = t[1]
             D['total_reservation'] = t[2]
             result.append(D)

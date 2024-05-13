@@ -34,7 +34,7 @@ class RoomUnavailable:
         enddate = data['enddate']
         dao = RoomUnavailableDAO()
         ru = dao.addNewRoomUnavailable(rid, startdate, enddate)
-        result = self.make_json(ru)
+        result = self.make_json_one(ru)
         return result 
     
     def getRoomUnavailableByRuid(self, ruid):
@@ -61,17 +61,7 @@ class RoomUnavailable:
         if not ru:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(ru)
+            result = "Succesfully deleted room unavailable with id " + str(ruid) + "!"
             return result
-        
-    def getByRid(self, rid):
-        dao = RoomUnavailableDAO()
-        ru = dao.getByRid(rid)
-        if not ru:
-            return jsonify("Not Found"), 404
-        else:
-            result = self.make_json_one(ru)
-            return result
-    
     
     

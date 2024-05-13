@@ -41,7 +41,7 @@ class Client:
         memberyear = data['memberyear']
         dao = ClientDAO()
         client = dao.addNewClient(fname, lname, age, memberyear)
-        result = self.make_json(client)
+        result = self.make_json_one(client)
         return result
 
     def getClientById(self, clid):
@@ -68,7 +68,7 @@ class Client:
         if not client:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(client)
+            result = "Succesfully deleted client with id " + str(clid) + "!"
             return result
 
 

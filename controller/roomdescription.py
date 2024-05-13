@@ -30,16 +30,16 @@ class Roomdescription:
         result = model.getAllRoomdescriptions()
         answer = self.make_json(result)
         return answer
-    
-    def addRoomDescription(self,data):
+
+    def addRoomDescription(self, data):
         rname = data['rname']
         rtype = data['rtype']
         capacity = data['capacity']
         ishandicap = data['ishandicap']
-        
+
         dao = RoomdescriptionDAO()
         ru = dao.addRoomdescription(rname, rtype, capacity, ishandicap)
-        result = self.make_json(ru)
+        result = self.make_json_one(ru)
         return result
     
     def updateRoomDescriptionById(self, rdid, data):
@@ -66,5 +66,5 @@ class Roomdescription:
         if not room:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(room)
+            result = "Successfully deleted room description with ID " + str(room) + "!"
             return result

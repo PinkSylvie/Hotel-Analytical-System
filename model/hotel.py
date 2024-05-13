@@ -35,8 +35,8 @@ class HotelDAO:
         query = "insert into hotel (chid, hname, hcity) values (%s, %s, %s);"
         cursor.execute(query, (chid, hname, hcity))
         self.conn.commit()
-        cursor.execute("SELECT * FROM hotel")
-        result = cursor.fetchall()
+        cursor.execute("SELECT * FROM hotel ORDER BY hid limit 1")
+        result = cursor.fetchone()
         cursor.close()
         return result
 
@@ -75,7 +75,7 @@ class HotelDAO:
             cursor.execute(query, (hid,))
             affected_rows = cursor.rowcount
             self.conn.commit()
-            cursor.execute("SELECT * FROM hotel")
-            result = cursor.fetchall()
+            # cursor.execute("SELECT * FROM hotel")
+            result = hid
             cursor.close()
             return result

@@ -37,7 +37,7 @@ class Room:
         rprice = data['rprice']
         dao = RoomDAO()
         room = dao.addNewRoom(hid, rdid, rprice)
-        result = self.make_json(room)
+        result = self.make_json_one(room)
         return result
 
     def getRoomById(self, rid):
@@ -64,6 +64,6 @@ class Room:
         if not room:
             return jsonify("Not Found"), 404
         else:
-            result = self.make_json(room)
+            result = "Succesfully deleted room with id  " + str(rid) + "!"
             return result
 

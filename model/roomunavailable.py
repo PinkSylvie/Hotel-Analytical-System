@@ -37,8 +37,10 @@ class RoomUnavailableDAO:
         cursor.execute(query, (rid, startdate, enddate))
         self.conn.commit()
         cursor.execute("SELECT * \
-                        FROM roomunavailable")
-        result = cursor.fetchall()
+                        FROM roomunavailable \
+                        ORDER BY ruid DESC \
+                        LIMIT 1")
+        result = cursor.fetchone()
         cursor.close()
         return result
     
@@ -82,8 +84,6 @@ class RoomUnavailableDAO:
                      where ruid = %s;"
             cursor.execute(query, (ruid,))
             self.conn.commit()
-            cursor.execute("SELECT * \
-                            FROM roomunavailable")
-            result = cursor.fetchall()
+            result = ruid
             cursor.close()
             return result

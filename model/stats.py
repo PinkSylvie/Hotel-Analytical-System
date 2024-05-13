@@ -98,14 +98,22 @@ class StatsDAO:
         cursor.close()
         return result
 
+    
     def getLeastGuests(self, hid):
         cursor = self.conn.cursor()
-        query = ("SELECT rid, rname, capacity, count(clid) as total_guests, count(clid)::float/capacity as ratio\
-                 from roomunavailable natural inner join reserve natural inner join room natural inner join roomdescription\
+        query = ("WITH room_reservation_stats AS ( \
+                 SELECT rid, SUM(guests) AS total_guests, \
+                 capacity * COUNT(rid) AS total_capacity_reserved \
+                 FROM room \
+                 NATURAL INNER JOIN roomunavailable \
+                 NATURAL INNER JOIN reserve \
+                 NATURAL INNER JOIN roomdescription \
                  where hid = %s \
-                 group by rid, rname, capacity\
-                 order by ratio\
-                 limit 3")
+                 GROUP BY rid, capacity ) \
+                 SELECT rid, round(cast(total_guests as numeric)/total_capacity_reserved, 2) as ratio \
+                 FROM room_reservation_stats \
+                 ORDER BY ratio \
+                 limit 3;")
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
@@ -130,11 +138,15 @@ class StatsDAO:
     def getTopClientDiscount(self, hid):
         cursor = self.conn.cursor()
         # If this returns an error remove single quotes from columns
-        query = "select clid, fname, lname, age, memberyear \
-                 from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) natural inner join hotel \
-                 where hid = %s \
-                 order by memberyear desc \
-                 limit 5;"
+        query = "select distinct clid, fname, lname, age, memberyear, \
+        case when memberyear between 1 and 4 then 2 \
+        when memberyear between 5 and 9 then 5 \
+        when memberyear between 10 and 14 then 8 else 12 \
+        end as discount \
+        from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) \
+        natural inner join hotel \
+        where hid = %s order by memberyear desc limit 5;"
+
         cursor.execute(query, (hid,))
         result = []
         for row in cursor:
@@ -218,7 +230,12 @@ class StatsDAO:
 
     def getTopHotelRes(self):
         cursor = self.conn.cursor()
-        query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(ru.ruid) AS reservation_count FROM hotel h INNER JOIN room r ON h.hid = r.hid LEFT JOIN roomunavailable ru ON r.rid = ru.rid GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS (SELECT *, PERCENT_RANK() OVER (ORDER BY reservation_count DESC) AS percentile_rank FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 0.1;"
+        query = "WITH HotelReservationCounts AS (SELECT h.hid, h.hname, h.hcity, COUNT(r2.reid) AS reservation_count \
+                                FROM hotel h NATURAL INNER JOIN room r NATURAL INNER JOIN roomunavailable ru \
+                                NATURAL INNER JOIN reserve r2 \
+                                GROUP BY h.hid, h.hname, h.hcity), RankedHotels AS \
+                                    (SELECT *, (PERCENT_RANK() OVER (ORDER BY reservation_count DESC)) * 100 AS percentile_rank \
+                                     FROM HotelReservationCounts) SELECT * FROM RankedHotels WHERE percentile_rank <= 10;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -241,17 +258,17 @@ class StatsDAO:
     def getProfitMonth(self):
         cursor = self.conn.cursor()
         query = "with profitmonth as( \
-                        SELECT cname, \
+                        SELECT chid, \
                         extract(Month from startdate) as reservation_month, \
                         count(*) as total_reservation, \
-                        row_number() over (partition by cname order by count(*) desc) as month_rank \
+                        row_number() over (partition by chid order by count(*) desc) as month_rank \
                         from reserve \
                         natural inner join roomunavailable \
                         natural inner join room \
                         natural inner join hotel \
                         natural inner join chains \
-                        group by cname, reservation_month) \
-                 select cname, reservation_month, total_reservation \
+                        group by chid, reservation_month) \
+                 select chid, reservation_month, total_reservation \
                  from profitmonth \
                  where month_rank <= 3"
         cursor.execute(query)

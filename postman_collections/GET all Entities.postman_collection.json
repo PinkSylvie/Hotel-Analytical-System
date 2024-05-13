@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "02d9d577-3652-4498-9a02-b5fa2d5b2f78",
+		"name": "GET all Entities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34115246",
+		"_collection_link": "https://climp-dbproject.postman.co/workspace/climp~91ec15d0-585d-47fe-8338-4c5780e90ef5/collection/34115246-02d9d577-3652-4498-9a02-b5fa2d5b2f78?action=share&source=collection_link&creator=34115246"
+	},
+	"item": [
+		{
+			"name": "getAllRoomUnavailable",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomunavailable",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomunavailable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRoomDescriptions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/roomdescription",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"roomdescription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/room",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllLogins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllHotels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/hotel",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"hotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllReserve",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/reserve",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllClients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/client",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllChains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/climp/chains",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"climp",
+						"chains"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
