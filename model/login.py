@@ -16,7 +16,7 @@ class LoginDAO:
         result = cursor.fetchone()
         return result
 
-    def signUp(self,eid,username_value,password_value):
+    def signUp(self,hid, fname, lname, age, position, salary, username_value,password_value):
 
         cursor = self.conn.cursor()
         query = "SELECT COUNT(*) FROM login WHERE username = %s"
@@ -26,8 +26,15 @@ class LoginDAO:
             cursor.close()
             return None
 
+        query = "insert into employee (hid,fname,lname,age,position,salary) values (%s, %s, %s, %s, %s, %s);"
+        cursor.execute(query, (hid, fname, lname, age, position, salary))
+        self.conn.commit()
+
+        query = "select eid from employee order by eid desc limit 1"
+        cursor.execute(query)
+        seid = cursor.fetchone()[0]
         query = "insert into login (eid, username, password) values (%s, %s, %s);"
-        cursor.execute(query, (eid, username_value, password_value))
+        cursor.execute(query, (seid, username_value, password_value))
         self.conn.commit()
 
         cursor.execute("SELECT lid FROM login ORDER BY lid DESC LIMIT 1;")

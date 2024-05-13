@@ -27,7 +27,7 @@ def handlesignUP():
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'eid','username','password'}
+            valid_keys = {'hid', 'fname', 'lname', 'age', 'position', 'salary', 'username', 'password'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a value"),
 
@@ -35,7 +35,7 @@ def handlesignUP():
             return handler.signUp(data)
         except Exception as e:
             print("Error processing request:", e)
-            return jsonify("This Employee ID does not exist, please try again"), 404
+            return jsonify("This Hotel ID does not exist, please try again"), 404
 @app.route("/climp/valid/login", methods=['GET'])
 
 def handleValidLogin():

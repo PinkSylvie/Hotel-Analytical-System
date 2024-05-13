@@ -34,12 +34,17 @@ class Login:
         return result
 
     def signUp(self,data):
-        eid = data['eid']
+        hid = data['hid']
+        fname = data['fname']
+        lname = data['lname']
+        age = data['age']
+        position = data['position']
+        salary = data['salary']
         username = data['username']
         password = data['password']
 
         dao = LoginDAO()
-        signup = dao.signUp(eid,username,password)
+        signup = dao.signUp(hid, fname, lname, age, position, salary,username,password)
         if not signup:
             return jsonify("Your username already exists, please try again"), 404
         else:

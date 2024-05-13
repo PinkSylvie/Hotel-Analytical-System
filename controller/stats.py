@@ -149,7 +149,7 @@ class Stats:
         result = []
         for t in tuples:
             D = {}
-            D['cname'] = t[0]
+            D['chid'] = t[0]
             D['reservation_month'] = t[1]
             D['total_reservation'] = t[2]
             result.append(D)
