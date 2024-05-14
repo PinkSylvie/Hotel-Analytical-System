@@ -139,14 +139,47 @@ class StatsDAO:
     def getTopClientDiscount(self, hid):
         cursor = self.conn.cursor()
         # If this returns an error remove single quotes from columns
-        query = "select distinct clid, fname, lname, age, memberyear, \
-        case when memberyear between 1 and 4 then 2 \
-        when memberyear between 5 and 9 then 5 \
-        when memberyear between 10 and 14 then 8 else 12 \
-        end as discount \
-        from (client natural inner join reserve) natural inner join (roomunavailable natural inner join room) \
-        natural inner join hotel \
-        where hid = %s order by memberyear desc limit 5;"
+        query = """select clid, fname, lname, memberyear,
+round( cast(room.rprice * (roomunavailable.enddate::DATE - roomunavailable.startdate::DATE) as numeric), 2) as res_cost,
+round(
+    cast(room.rprice * (roomunavailable.enddate::DATE - roomunavailable.startdate::DATE) *
+    (case
+        when extract(month from roomunavailable.startdate::DATE) in (3,4,5) then chains.springmkup
+        when extract(month from roomunavailable.startdate::DATE) in (6,7,8) then chains.summermkup
+        when extract(month from roomunavailable.startdate::DATE) in (9,10,11) then chains.fallmkup
+        else chains.wintermkup
+    end) *
+    (case
+        when memberyear > 0 and memberyear < 5 then 0.02
+        when memberyear > 4 and memberyear < 10 then 0.05
+        when memberyear > 9 and memberyear < 15 then 0.08
+        else 0.12
+    end) as NUMERIC),
+    2
+    ) as discount
+from client
+natural inner join reserve
+natural inner join roomunavailable
+natural inner join hotel
+natural inner join room
+natural inner join chains
+where hotel.hid = %s
+group by clid,
+         fname,
+         lname,
+         age,
+         memberyear,
+         room.rprice,
+         roomunavailable.startdate,
+         roomunavailable.enddate,
+         chains.fallmkup,
+         chains.springmkup,
+         chains.wintermkup,
+         chains.summermkup,
+         reserve.total_cost
+order by discount desc
+limit 5;
+"""
 
         cursor.execute(query, (hid,))
         result = []
