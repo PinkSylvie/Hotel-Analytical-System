@@ -36,11 +36,10 @@ class Reserve:
     def addNewReserve(self, data):
         ruid = data['ruid']
         clid = data['clid']
-        total_cost = data['total_cost']
         payment = data['payment']
         guests = data['guests']
         dao = ReserveDAO()
-        reserve = dao.addNewReserve(ruid,clid,total_cost,payment,guests)
+        reserve = dao.addNewReserve(ruid,clid,payment,guests)
         if not reserve:
             return jsonify("Room is reserved by someone else"), 404
         else:

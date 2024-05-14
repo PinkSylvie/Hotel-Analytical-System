@@ -19,13 +19,16 @@ class ReserveDAO:
         cursor.close()
         return result
 
-    def addNewReserve(self,ruid, clid, total_cost, payment, guests):
+    def addNewReserve(self,ruid, clid, payment, guests):
 
         cursor = self.conn.cursor()
         query ="select count(*) from reserve where ruid = %s"
         cursor.execute(query, (ruid,))
         check = cursor.fetchone()[0]
         if check == 0:
+            query = "select rprice from room natural inner join roomunavailable where ruid = %s"
+            cursor.execute(query,(ruid,))
+            total_cost = cursor.fetchone()[0]
             query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s);"
             cursor.execute(query, (ruid, clid, total_cost, payment, guests))
             self.conn.commit()

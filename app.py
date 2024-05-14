@@ -493,7 +493,7 @@ def handleReserve():
             if not data:
                 return jsonify("No data provided"), 404
 
-            valid_keys = {'ruid', 'clid', 'total_cost', 'payment', 'guests'}
+            valid_keys = {'ruid', 'clid', 'payment', 'guests'}
             if not all(key in data for key in valid_keys):
                 return jsonify("Missing a key"), 404
 
