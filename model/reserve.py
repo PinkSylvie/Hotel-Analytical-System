@@ -26,8 +26,35 @@ class ReserveDAO:
         cursor.execute(query, (ruid,))
         check = cursor.fetchone()[0]
         if check == 0:
-            query = "select rprice from room natural inner join roomunavailable where ruid = %s"
-            cursor.execute(query,(ruid,))
+            query = """
+                    select
+                        round(
+                            cast(
+                                (rprice * (
+                                    case
+                                        when extract(month from startdate) in (12, 1, 2) then wintermkup
+                                        when extract(month from startdate) in (3, 4, 5) then springmkup
+                                        when extract(month from startdate) in (6, 7, 8) then summermkup
+                                        else fallmkup
+                                    end)
+                                ) * (1 - (
+                                    case
+                                        when memberyear = 0 then 0.0
+                                        when memberyear > 0 and memberyear < 5 then 0.02
+                                        when memberyear > 4 and memberyear < 10 then 0.05
+                                        when memberyear > 9 and memberyear < 15 then 0.08
+                                        else 0.12
+                                        end)
+                                ) as numeric), 2) as total_cost
+                    from roomunavailable
+                    natural inner join room
+                    natural inner join hotel
+                    natural inner join chains
+                    natural inner join client
+                    where clid = %s
+                    and ruid = %s
+            """
+            cursor.execute(query,(clid, ruid))
             total_cost = cursor.fetchone()[0]
             query = "insert into reserve (ruid, clid, total_cost, payment, guests) values (%s, %s, %s, %s, %s);"
             cursor.execute(query, (ruid, clid, total_cost, payment, guests))
